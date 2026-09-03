@@ -27,9 +27,16 @@ export type DependencyRef = {
   range?: string;
 };
 
+export type SkillProfile = {
+  name: string;
+  description: string;
+  skills: string[];
+};
+
 export type RegistryIndex = {
   version: 1;
   skills: RegistryEntry[];
+  profiles?: SkillProfile[];
 };
 
 export class RegistryError extends Error {
@@ -438,5 +445,60 @@ export async function buildRegistryIndex(
   }
 
   skills.sort((a, b) => a.name.localeCompare(b.name));
-  return { version: 1, skills };
+  const profiles = await loadOfficialProfiles(repoRoot, skills);
+  return { version: 1, skills, profiles };
+}
+
+export function resolveProfile(
+  index: RegistryIndex,
+  name: string,
+): SkillProfile {
+  const profile = (index.profiles ?? []).find((item) => item.name === name);
+  if (!profile) {
+    throw new RegistryError(`Profile not found: ${name}`);
+  }
+  return profile;
+}
+
+async function loadOfficialProfiles(
+  repoRoot: string,
+  skills: RegistryEntry[],
+): Promise<SkillProfile[]> {
+  const dir = path.join(repoRoot, "profiles");
+  let files: string[] = [];
+  try {
+    files = (await readdir(dir))
+      .filter((name) => name.endsWith(".json"))
+      .sort();
+  } catch {
+    return [];
+  }
+
+  const known = new Set(skills.map((skill) => skill.name));
+  const profiles: SkillProfile[] = [];
+
+  for (const file of files) {
+    const raw = JSON.parse(
+      await readFile(path.join(dir, file), "utf8"),
+    ) as SkillProfile;
+    if (!raw.name || !Array.isArray(raw.skills) || raw.skills.length === 0) {
+      throw new RegistryError(`Invalid profile file: ${file}`);
+    }
+    for (const ref of raw.skills) {
+      const { name } = parseSkillRef(ref);
+      if (!known.has(name)) {
+        throw new RegistryError(
+          `Profile ${raw.name} references unknown skill ${name}`,
+        );
+      }
+    }
+    profiles.push({
+      name: raw.name,
+      description: raw.description ?? "",
+      skills: raw.skills,
+    });
+  }
+
+  profiles.sort((a, b) => a.name.localeCompare(b.name));
+  return profiles;
 }

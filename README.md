@@ -66,7 +66,28 @@ npx flareskill update [name...]
 npx flareskill uninstall <name>
 npx flareskill list
 npx flareskill info <name>
+npx flareskill profile list
+npx flareskill profile install frontend
 ```
+
+## Profiles
+
+Named skill sets for a stack. Official profiles ship in the registry; local ones live in `.flareskill/profiles/`.
+
+```bash
+npx flareskill profile list
+npx flareskill profile info backend
+npx flareskill profile install backend --agent cursor
+npx flareskill profile create my-stack --from-installed
+```
+
+| Profile | Skills |
+| ------- | ------ |
+| `backend` | Spring Boot, Node.js, Python, security |
+| `frontend` | React, Next.js |
+| `devops` | Docker, Kubernetes |
+| `platform` | Architect, security, QA |
+
 
 ## Skill format
 

@@ -213,5 +213,42 @@
         "security-engineer@1.x"
       ]
     }
+  ],
+  "profiles": [
+    {
+      "name": "backend",
+      "description": "Backend services: Spring Boot, Node.js, Python, and application security.",
+      "skills": [
+        "senior-spring-boot-engineer",
+        "senior-nodejs-engineer",
+        "senior-python-engineer",
+        "security-engineer"
+      ]
+    },
+    {
+      "name": "devops",
+      "description": "Containers and cluster operations: Docker and Kubernetes.",
+      "skills": [
+        "docker-engineer",
+        "kubernetes-engineer"
+      ]
+    },
+    {
+      "name": "frontend",
+      "description": "Frontend apps: React and Next.js App Router.",
+      "skills": [
+        "senior-react-engineer",
+        "senior-nextjs-engineer"
+      ]
+    },
+    {
+      "name": "platform",
+      "description": "Architecture, security, and QA for reviewing and shipping production systems.",
+      "skills": [
+        "system-architect",
+        "security-engineer",
+        "qa-engineer"
+      ]
+    }
   ]
 }

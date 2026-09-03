@@ -1,0 +1,10 @@
+{
+  "name": "backend",
+  "description": "Backend services: Spring Boot, Node.js, Python, and application security.",
+  "skills": [
+    "senior-spring-boot-engineer",
+    "senior-nodejs-engineer",
+    "senior-python-engineer",
+    "security-engineer"
+  ]
+}

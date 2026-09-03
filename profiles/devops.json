@@ -1,0 +1,8 @@
+{
+  "name": "devops",
+  "description": "Containers and cluster operations: Docker and Kubernetes.",
+  "skills": [
+    "docker-engineer",
+    "kubernetes-engineer"
+  ]
+}

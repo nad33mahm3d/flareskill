@@ -4,6 +4,7 @@ import {
   parseSkillRef,
   resolveDependencyOrder,
   resolveEntry,
+  resolveProfile,
   searchSkills,
   versionSatisfies,
   type RegistryIndex,
@@ -203,5 +204,25 @@ describe("dependencies", () => {
       ],
     };
     expect(() => resolveDependencyOrder(cyclic, "a-skill")).toThrow(/Circular/);
+  });
+});
+
+describe("resolveProfile", () => {
+  it("finds a named profile", () => {
+    const index: RegistryIndex = {
+      version: 1,
+      skills: [],
+      profiles: [
+        {
+          name: "frontend",
+          description: "UI",
+          skills: ["senior-react-engineer"],
+        },
+      ],
+    };
+    expect(resolveProfile(index, "frontend").skills).toEqual([
+      "senior-react-engineer",
+    ]);
+    expect(() => resolveProfile(index, "missing")).toThrow(/not found/);
   });
 });

@@ -5,6 +5,12 @@ import { runInit } from "./commands/init.js";
 import { runInstall } from "./commands/install.js";
 import { runList } from "./commands/list.js";
 import { runOutdated } from "./commands/outdated.js";
+import {
+  runProfileCreate,
+  runProfileInfo,
+  runProfileInstall,
+  runProfileList,
+} from "./commands/profile.js";
 import { runSearch } from "./commands/search.js";
 import { runUninstall } from "./commands/uninstall.js";
 import { runUpdate } from "./commands/update.js";
@@ -155,6 +161,79 @@ program
   .action(async (skill: string, options: { registry?: string }) => {
     await runInfo(skill, options);
   });
+
+const profile = program
+  .command("profile")
+  .description("Install or manage named skill profiles");
+
+profile
+  .command("list")
+  .option("-r, --registry <url>", "Registry index URL or local path")
+  .description("List official and local skill profiles")
+  .action(async (options: { registry?: string }) => {
+    await runProfileList(options);
+  });
+
+profile
+  .command("info")
+  .argument("<name>", "Profile name")
+  .option("-r, --registry <url>", "Registry index URL or local path")
+  .description("Show skills in a profile")
+  .action(async (name: string, options: { registry?: string }) => {
+    await runProfileInfo(name, options);
+  });
+
+profile
+  .command("install")
+  .argument("<name>", "Profile name")
+  .option("-g, --global", "Install for the current user")
+  .option(
+    "-a, --agent <agent>",
+    "Target agent: auto, cursor, claude, codex, or generic",
+    "auto",
+  )
+  .option("-r, --registry <url>", "Registry index URL or local path")
+  .option("--no-deps", "Skip installing skill dependencies")
+  .option("-q, --quiet", "Less verbose install output")
+  .description("Install every skill in a profile")
+  .action(
+    async (
+      name: string,
+      options: {
+        global?: boolean;
+        agent: string;
+        registry?: string;
+        deps?: boolean;
+        quiet?: boolean;
+      },
+    ) => {
+      await runProfileInstall(name, {
+        global: options.global,
+        agent: options.agent,
+        registry: options.registry,
+        noDeps: options.deps === false,
+        quiet: options.quiet,
+      });
+    },
+  );
+
+profile
+  .command("create")
+  .argument("<name>", "Profile name (lowercase, hyphens)")
+  .option(
+    "--from-installed",
+    "Snapshot currently installed project skills",
+  )
+  .option("-f, --force", "Overwrite an existing local profile")
+  .description("Create a local profile under .flareskill/profiles/")
+  .action(
+    async (
+      name: string,
+      options: { fromInstalled?: boolean; force?: boolean },
+    ) => {
+      await runProfileCreate(name, options);
+    },
+  );
 
 async function main(): Promise<void> {
   try {

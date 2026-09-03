@@ -99,6 +99,26 @@ Adapters install the same `SKILL.md` package into agent-specific roots:
 
 Auto-detect order: Cursor → Claude → Codex → generic.
 
+## Profiles
+
+A **profile** is a named list of skill refs. Official profiles live in [`profiles/`](../profiles/) and are published in `registry/index.json`. Project-local profiles are YAML files under `.flareskill/profiles/`.
+
+```yaml
+name: backend
+description: Backend services
+skills:
+  - senior-spring-boot-engineer
+  - senior-nodejs-engineer
+```
+
+```bash
+npx flareskill profile list
+npx flareskill profile install backend
+npx flareskill profile create my-stack --from-installed
+```
+
+Local profiles override official ones with the same name.
+
 ## Safety
 
 Skill packages must not contain absolute paths, `..` segments, blocked binary extensions, or files over 1MB. Install never writes outside the chosen skills root. Validation also flags empty bodies, invalid dependency refs, unknown agents, and suspicious instruction phrases.

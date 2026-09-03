@@ -9,4 +9,6 @@ const index = await buildRegistryIndex(repoRoot);
 const out = path.join(repoRoot, "registry", "index.json");
 await mkdir(path.dirname(out), { recursive: true });
 await writeFile(out, `${JSON.stringify(index, null, 2)}\n`);
-console.log(`Wrote ${index.skills.length} skills to ${out}`);
+console.log(
+  `Wrote ${index.skills.length} skills and ${index.profiles?.length ?? 0} profiles to ${out}`,
+);

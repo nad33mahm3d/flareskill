@@ -1,0 +1,9 @@
+{
+  "name": "platform",
+  "description": "Architecture, security, and QA for reviewing and shipping production systems.",
+  "skills": [
+    "system-architect",
+    "security-engineer",
+    "qa-engineer"
+  ]
+}

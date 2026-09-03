@@ -41,6 +41,8 @@ npx flareskill update [name...]
 npx flareskill uninstall <name>
 npx flareskill list
 npx flareskill info <name>
+npx flareskill profile list
+npx flareskill profile install frontend
 ```
 
 ## Docs

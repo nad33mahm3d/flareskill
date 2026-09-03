@@ -10,7 +10,7 @@ FlareSkill ships as a **standard + CLI + GitHub registry + starter skills**.
 - Cursor and generic adapters
 - Official starter skills
 
-## v0.2 (current)
+## v0.2
 
 - Search (`flareskill search`)
 - Update (`flareskill update`) + outdated listing
@@ -20,12 +20,12 @@ FlareSkill ships as a **standard + CLI + GitHub registry + starter skills**.
 - Stronger validation (structure, deps, agents, blocked files, safety heuristics)
 - `flareskill init`, quiet install UX, E2E smoke in CI
 
-## v0.3
+## v0.3 (in progress)
 
-- Public registry website
-- Skill profiles
-- GitHub publish workflow
-- Community contribution tooling
+- Skill profiles (`flareskill profile list|info|install|create`)
+- Public registry website (next)
+- GitHub publish workflow for community skills (next)
+- Community contribution tooling (next)
 
 ## v1.0
 

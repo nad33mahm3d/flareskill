@@ -35,7 +35,7 @@ npm run build
 node apps/cli/dist/index.js --help
 ```
 
-Workspaces live under `apps/` and `packages/`. Official skills live under `skills/`. After adding or changing a skill, run `npm run registry:build` so `registry/index.json` stays in sync.
+Workspaces live under `apps/` and `packages/`. Official skills live under `skills/`. Official profiles live under `profiles/`. After adding or changing a skill or profile, run `npm run registry:build` so `registry/index.json` stays in sync.
 
 ## Pull requests
 
