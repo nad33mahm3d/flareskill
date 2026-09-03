@@ -25,7 +25,7 @@ export type RegistryIndex = {
   profiles?: RegistryProfile[];
 };
 
-import index from "../../../registry/index.json";
+import index from "../data/registry.json";
 
 export function getRegistry(): RegistryIndex {
   return index as RegistryIndex;

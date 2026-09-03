@@ -11,3 +11,5 @@ coverage/
 .vitest/
 .next/
 out/
+.vercel
+apps/web/data/registry.json

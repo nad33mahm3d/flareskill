@@ -5,8 +5,9 @@
   "description": "Public FlareSkill registry website",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev --port 3000",
-    "build": "next build",
+    "sync-registry": "mkdir -p data && cp ../../registry/index.json data/registry.json",
+    "dev": "npm run sync-registry && next dev --port 3000",
+    "build": "npm run sync-registry && next build",
     "start": "next start"
   },
   "dependencies": {
