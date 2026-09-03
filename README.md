@@ -5,12 +5,12 @@
 [![npm version](https://img.shields.io/npm/v/flareskill.svg)](https://www.npmjs.com/package/flareskill)
 [![CI](https://github.com/nad33mahm3d/flareskill/actions/workflows/ci.yml/badge.svg)](https://github.com/nad33mahm3d/flareskill/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-[![Registry](https://img.shields.io/badge/registry-flareskill.vercel.app-7dd3fc)](https://flareskill.vercel.app)
+[![Registry](https://img.shields.io/badge/registry-flareskill.vercel.app-c15f3c)](https://flareskill.vercel.app)
 [![DeepWiki](https://img.shields.io/badge/docs-DeepWiki-6e56cf)](https://deepwiki.com/nad33mahm3d/flareskill)
 
 **FlareSkill is an open-source registry and CLI for discovering, installing, sharing, and managing reusable AI agent skills.**
 
-Browse skills at [flareskill.vercel.app](https://flareskill.vercel.app). Architecture walkthrough: [DeepWiki](https://deepwiki.com/nad33mahm3d/flareskill).
+Browse the [AI skills registry](https://flareskill.vercel.app), read the [guides](https://flareskill.vercel.app/blog), or open the [DeepWiki](https://deepwiki.com/nad33mahm3d/flareskill) architecture walkthrough.
 
 ## Quick start
 
@@ -129,8 +129,12 @@ Every skill is a directory with `SKILL.md` (YAML frontmatter + instructions). Se
 ## Links
 
 - [Registry website](https://flareskill.vercel.app)
+- [Blog / guides](https://flareskill.vercel.app/blog)
+- [Profiles](https://flareskill.vercel.app/profiles)
+- [llm.txt](https://flareskill.vercel.app/llm.txt) (machine-readable catalog)
 - [DeepWiki](https://deepwiki.com/nad33mahm3d/flareskill)
 - [npm](https://www.npmjs.com/package/flareskill)
+- [Privacy](https://flareskill.vercel.app/privacy) · [Terms](https://flareskill.vercel.app/terms)
 - [Skill specification](docs/specification.md)
 - [Creating skills](docs/creating-skills.md)
 - [Contributing](CONTRIBUTING.md)
@@ -149,7 +153,7 @@ Monorepo: `apps/cli`, `apps/web`, `packages/*`, `skills/*`, Git-based `registry/
 
 Browse the registry locally: `npm run web` → http://localhost:3000
 
-The public site is [https://flareskill.vercel.app](https://flareskill.vercel.app) (`apps/web`, deployed on Vercel from `main`).
+The public site is [https://flareskill.vercel.app](https://flareskill.vercel.app) (`apps/web` on Vercel from `main`). The catalog updates when `registry/index.json` changes and the site redeploys.
 
 ## License
 

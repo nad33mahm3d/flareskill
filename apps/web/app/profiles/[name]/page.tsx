@@ -8,6 +8,7 @@ import {
   getSkill,
   profileInstallCommand,
 } from "../../../lib/registry";
+import { pageMetadata } from "../../../lib/seo";
 
 type Params = { name: string };
 
@@ -24,10 +25,14 @@ export function generateMetadata({
 }): Promise<Metadata> {
   return params.then(({ name }) => {
     const profile = getProfile(name);
-    return {
-      title: profile ? `Profile: ${profile.name}` : "Profile",
-      description: profile?.description,
-    };
+    if (!profile) {
+      return { title: "Profile" };
+    }
+    return pageMetadata({
+      title: `${profile.name} — Agent Skills Profile`,
+      description: `${profile.description} Install this FlareSkill profile to get a curated set of AI agent skills for Cursor, Claude Code, and Codex.`,
+      path: `/profiles/${profile.name}`,
+    });
   });
 }
 

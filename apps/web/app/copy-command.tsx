@@ -20,7 +20,12 @@ export function CopyCommand({ command }: { command: string }) {
       <pre>
         <span className="shell-prompt">$</span> {command}
       </pre>
-      <button type="button" className="copy-btn" onClick={() => void copy()}>
+      <button
+        type="button"
+        className="copy-btn"
+        onClick={() => void copy()}
+        aria-label={copied ? "Copied to clipboard" : "Copy install command"}
+      >
         {copied ? "Copied" : "Copy"}
       </button>
     </div>

@@ -2,12 +2,15 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CopyCommand } from "../../copy-command";
+import { JsonLd, skillJsonLd } from "../../../lib/json-ld";
 import {
   getRegistry,
   getSkill,
   githubSkillUrl,
   installCommand,
 } from "../../../lib/registry";
+import { humanizeSkillName, pageMetadata } from "../../../lib/seo";
+import { NPM_URL } from "../../../lib/site";
 
 type Params = { name: string };
 
@@ -22,10 +25,16 @@ export function generateMetadata({
 }): Promise<Metadata> {
   return params.then(({ name }) => {
     const skill = getSkill(name);
-    return {
-      title: skill ? `${skill.name}@${skill.version}` : "Skill",
-      description: skill?.description,
-    };
+    if (!skill) {
+      return { title: "Skill" };
+    }
+    const title = `${humanizeSkillName(skill.name)} — AI Agent Skill`;
+    const description = `Install the ${humanizeSkillName(skill.name)} AI agent skill with FlareSkill. ${skill.description} Version ${skill.version}. Works with Cursor, Claude Code, and Codex.`;
+    return pageMetadata({
+      title,
+      description,
+      path: `/skills/${skill.name}`,
+    });
   });
 }
 
@@ -42,6 +51,7 @@ export default async function SkillPage({
 
   return (
     <article className="detail">
+      <JsonLd data={skillJsonLd(skill)} />
       <Link className="back" href="/">
         ← Skills
       </Link>
@@ -76,9 +86,15 @@ export default async function SkillPage({
         ))}
       </div>
       <p className="actions">
+        <a className="btn btn-primary" href={NPM_URL}>
+          Install FlareSkill
+        </a>
         <a className="btn btn-ghost" href={githubSkillUrl(skill.path)}>
           View source on GitHub
         </a>
+        <Link className="btn btn-ghost" href="/blog/getting-started">
+          Get started guide
+        </Link>
       </p>
     </article>
   );
