@@ -1,0 +1,205 @@
+{
+  "version": 1,
+  "skills": [
+    {
+      "name": "docker-engineer",
+      "version": "1.0.0",
+      "category": "devops",
+      "description": "Production-grade Docker and container image engineering. Use when writing Dockerfiles, compose files, image pipelines, or reviewing container build and runtime practices.",
+      "tags": [
+        "docker",
+        "containers",
+        "devops",
+        "images"
+      ],
+      "author": "flareskill-community",
+      "license": "MIT",
+      "path": "skills/devops/docker-engineer",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "checksum": "132a9e0702682aaa00ef223d3fb2d03c4f342deef75a716a5fce3640bcfed754"
+    },
+    {
+      "name": "kubernetes-engineer",
+      "version": "1.0.0",
+      "category": "devops",
+      "description": "Production-grade Kubernetes engineering. Use when writing or reviewing manifests, workloads, networking, rollouts, and cluster operational practices.",
+      "tags": [
+        "kubernetes",
+        "devops",
+        "containers",
+        "yaml"
+      ],
+      "author": "flareskill-community",
+      "license": "MIT",
+      "path": "skills/devops/kubernetes-engineer",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "checksum": "489b84b05743c42ae9e0e063530e685d86b727cc76d17216c9fecf5ff3c787af"
+    },
+    {
+      "name": "qa-engineer",
+      "version": "1.0.0",
+      "category": "qa",
+      "description": "Quality engineering for software teams. Use when designing test strategy, regression suites, exploratory charters, release gates, or reproducing and isolating defects.",
+      "tags": [
+        "qa",
+        "testing",
+        "quality",
+        "regression"
+      ],
+      "author": "flareskill-community",
+      "license": "MIT",
+      "path": "skills/engineering/qa-engineer",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "checksum": "18a8d7b49049787dee12a4c33a508783e21b43c6ce970dbf83372bc07a98c742"
+    },
+    {
+      "name": "security-engineer",
+      "version": "1.0.0",
+      "category": "security",
+      "description": "Application security engineering. Use when reviewing authn/z, secrets, threat models, dependency risk, or hardening APIs and infrastructure-as-code.",
+      "tags": [
+        "security",
+        "appsec",
+        "threat-modeling",
+        "auth"
+      ],
+      "author": "flareskill-community",
+      "license": "MIT",
+      "path": "skills/security/security-engineer",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "checksum": "7d30fabbee460c1c6bea19781b20e0c05399d3f949238f381bfca58d5fe8b821"
+    },
+    {
+      "name": "senior-nextjs-engineer",
+      "version": "1.0.0",
+      "category": "frontend",
+      "description": "Production-grade Next.js App Router engineering. Use when building or reviewing Next.js routes, server/client components, caching, data fetching, and deployment behavior.",
+      "tags": [
+        "nextjs",
+        "react",
+        "frontend",
+        "app-router"
+      ],
+      "author": "flareskill-community",
+      "license": "MIT",
+      "path": "skills/frontend/senior-nextjs-engineer",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "checksum": "d1c90c41b05e326ad5708b1b5dab5c4aeb58f9c9f06283d44d872698bd4b47a1"
+    },
+    {
+      "name": "senior-nodejs-engineer",
+      "version": "1.0.0",
+      "category": "backend",
+      "description": "Production-grade Node.js backend engineering. Use when building or reviewing Node.js APIs, services, workers, and TypeScript server code.",
+      "tags": [
+        "nodejs",
+        "typescript",
+        "backend",
+        "javascript"
+      ],
+      "author": "flareskill-community",
+      "license": "MIT",
+      "path": "skills/backend/senior-nodejs-engineer",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "checksum": "4eaf4dbbf2aea30959d1a3e6d0d3a75c90ddcc2f7bb02963993eca4305d95710"
+    },
+    {
+      "name": "senior-python-engineer",
+      "version": "1.0.0",
+      "category": "backend",
+      "description": "Production-grade Python engineering. Use when building or reviewing Python APIs, services, data tooling, or packaging with type hints and tests.",
+      "tags": [
+        "python",
+        "backend",
+        "fastapi",
+        "typing"
+      ],
+      "author": "flareskill-community",
+      "license": "MIT",
+      "path": "skills/backend/senior-python-engineer",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "checksum": "11dadfb5e482c465ba3df85f17a37eceba054d0a1b94a1f9c2cdfb983daae9ae"
+    },
+    {
+      "name": "senior-react-engineer",
+      "version": "1.0.0",
+      "category": "frontend",
+      "description": "Production-grade React engineering. Use when building or reviewing React UIs, component structure, state, accessibility, and frontend performance.",
+      "tags": [
+        "react",
+        "frontend",
+        "typescript",
+        "ui"
+      ],
+      "author": "flareskill-community",
+      "license": "MIT",
+      "path": "skills/frontend/senior-react-engineer",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "checksum": "429f1cfd1233b3e7325e3fa937dd5bf5bcefdad37f51a345e06aaf353ec3da2d"
+    },
+    {
+      "name": "senior-spring-boot-engineer",
+      "version": "1.0.0",
+      "category": "backend",
+      "description": "Production-grade Spring Boot engineering. Use when building, reviewing, or evolving Java Spring Boot services, APIs, persistence, and operational readiness.",
+      "tags": [
+        "java",
+        "spring-boot",
+        "backend",
+        "microservices"
+      ],
+      "author": "flareskill-community",
+      "license": "MIT",
+      "path": "skills/backend/senior-spring-boot-engineer",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "checksum": "a85b397e6b61b3888a590b5ddc4ec9401b39c717fda384d62e9d103f7cdf81e3"
+    },
+    {
+      "name": "system-architect",
+      "version": "1.0.0",
+      "category": "architecture",
+      "description": "System architecture for software products. Use when designing services, boundaries, data flow, trade-offs, ADRs, or reviewing whether a change fits the current architecture.",
+      "tags": [
+        "architecture",
+        "design",
+        "tradeoffs",
+        "adr"
+      ],
+      "author": "flareskill-community",
+      "license": "MIT",
+      "path": "skills/engineering/system-architect",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "checksum": "708cc5242fb97c2f0ddff0b749bae5fa79502439ff8eb696777f5c82024a700d"
+    }
+  ]
+}

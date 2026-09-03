@@ -1,0 +1,28 @@
+{
+  "name": "flareskill-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Open-source registry and CLI for discovering, installing, sharing, and managing reusable AI agent skills.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build -w @flareskill/skill-schema && npm run build -w @flareskill/skill-parser && npm run build -w @flareskill/skill-validator && npm run build -w @flareskill/registry-client && npm run build -w @flareskill/agent-adapters && npm run build -w flareskill",
+    "test": "npm run build && npm run test --workspaces --if-present",
+    "flareskill": "npm run build && node apps/cli/dist/index.js",
+    "registry:build": "npm run build && node scripts/build-registry.js",
+    "validate:skills": "npm run build && node apps/cli/dist/index.js validate ./skills"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@flareskill/skill-parser",
+  "version": "0.1.0",
+  "description": "Parse SKILL.md frontmatter and optional metadata.yaml",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@flareskill/skill-schema": "*",
+    "yaml": "^2.8.1"
+  }
+}

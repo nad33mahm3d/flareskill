@@ -1,0 +1,24 @@
+{
+  "name": "@flareskill/skill-validator",
+  "version": "0.1.0",
+  "description": "Validate FlareSkill packages: schema, structure, and path safety",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@flareskill/skill-parser": "*",
+    "@flareskill/skill-schema": "*"
+  }
+}
