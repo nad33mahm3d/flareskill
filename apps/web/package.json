@@ -1,7 +1,7 @@
 {
   "name": "@flareskill/web",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Public FlareSkill registry website",
   "license": "MIT",
   "scripts": {
