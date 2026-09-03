@@ -118,7 +118,12 @@ node apps/cli/dist/index.js --help
 npm run validate:skills
 ```
 
-Monorepo: `apps/cli`, `packages/*`, `skills/*`, Git-based `registry/index.json`.
+Monorepo: `apps/cli`, `apps/web`, `packages/*`, `skills/*`, Git-based `registry/index.json`.
+
+Browse the registry locally: `npm run web` → http://localhost:3000
+
+The public site deploys from `apps/web` to GitHub Pages (`https://nad33mahm3d.github.io/flareskill/`) after Pages is enabled (Settings → Pages → GitHub Actions).
+
 
 ## License
 

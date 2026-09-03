@@ -23,7 +23,7 @@ FlareSkill ships as a **standard + CLI + GitHub registry + starter skills**.
 ## v0.3 (in progress)
 
 - Skill profiles (`flareskill profile list|info|install|create`)
-- Public registry website (next)
+- Public registry website (`apps/web`, GitHub Pages)
 - GitHub publish workflow for community skills (next)
 - Community contribution tooling (next)
 

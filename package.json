@@ -19,7 +19,9 @@
     "flareskill": "npm run build && node apps/cli/dist/index.js",
     "registry:build": "npm run build && node scripts/build-registry.js",
     "validate:skills": "npm run build && node apps/cli/dist/index.js validate ./skills",
-    "demo:gif": "bash scripts/record-demo.sh"
+    "demo:gif": "bash scripts/record-demo.sh",
+    "web": "npm run dev -w @flareskill/web",
+    "build:web": "npm run build -w @flareskill/web"
   },
   "devDependencies": {
     "@types/node": "^24.5.2",

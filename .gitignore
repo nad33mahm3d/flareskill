@@ -9,3 +9,5 @@ coverage/
 .flareskill/config.yaml
 *.tsbuildinfo
 .vitest/
+.next/
+out/
