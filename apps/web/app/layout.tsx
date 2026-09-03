@@ -22,11 +22,13 @@ export default function RootLayout({
       <body>
         <header className="site-header">
           <Link className="brand" href="/">
+            <img src="/logo.svg" width={32} height={32} alt="" />
             FlareSkill
           </Link>
           <nav>
             <Link href="/">Skills</Link>
             <Link href="/profiles">Profiles</Link>
+            <a href="https://deepwiki.com/nad33mahm3d/flareskill">DeepWiki</a>
             <a href="https://github.com/nad33mahm3d/flareskill">GitHub</a>
             <a href="https://www.npmjs.com/package/flareskill">npm</a>
           </nav>
@@ -34,7 +36,9 @@ export default function RootLayout({
         <main className="site-main">{children}</main>
         <footer className="site-footer">
           Open source · MIT ·{" "}
-          <a href="https://github.com/nad33mahm3d/flareskill">nad33mahm3d/flareskill</a>
+          <a href="https://github.com/nad33mahm3d/flareskill">GitHub</a>
+          {" · "}
+          <a href="https://deepwiki.com/nad33mahm3d/flareskill">DeepWiki</a>
         </footer>
       </body>
     </html>

@@ -1,10 +1,16 @@
 # FlareSkill
 
+<img src="docs/assets/logo.svg" width="96" height="96" alt="FlareSkill">
+
 [![npm version](https://img.shields.io/npm/v/flareskill.svg)](https://www.npmjs.com/package/flareskill)
 [![CI](https://github.com/nad33mahm3d/flareskill/actions/workflows/ci.yml/badge.svg)](https://github.com/nad33mahm3d/flareskill/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Registry](https://img.shields.io/badge/registry-flareskill.vercel.app-7dd3fc)](https://flareskill.vercel.app)
+[![DeepWiki](https://img.shields.io/badge/docs-DeepWiki-6e56cf)](https://deepwiki.com/nad33mahm3d/flareskill)
 
 **FlareSkill is an open-source registry and CLI for discovering, installing, sharing, and managing reusable AI agent skills.**
+
+Browse skills at [flareskill.vercel.app](https://flareskill.vercel.app). Architecture walkthrough: [DeepWiki](https://deepwiki.com/nad33mahm3d/flareskill).
 
 ## Quick start
 
@@ -14,16 +20,29 @@ npx flareskill search react
 npx flareskill install senior-react-engineer --agent cursor
 ```
 
+Or pick a skill in the [registry](https://flareskill.vercel.app) and paste the install command.
+
 ![FlareSkill CLI demo](docs/assets/demo.gif)
 
 Regenerate the GIF with [VHS](https://github.com/charmbracelet/vhs): `npm run demo:gif`
 
-- One standard format
-- One CLI
+- One standard format (`SKILL.md`)
+- One CLI (`npx flareskill`)
 - Multiple AI agents (Cursor, Claude Code, Codex, generic)
-- Versioned skills + lockfile
-- Dependencies, search, and update
+- Versioned skills, lockfile, and dependencies
+- Named profiles for a whole stack
 - Open source
+
+## Why FlareSkill
+
+AI coding agents get better when instructions are **packages**, not paste-bin prompts: versioned, searchable, installable, and shareable with a team.
+
+**How it works**
+
+1. Skills live in Git as directories with `SKILL.md`.
+2. `registry/index.json` lists names, versions, checksums, and dependencies.
+3. `flareskill install` downloads, validates, and copies the skill into the agent folder (`.cursor/skills/`, `.claude/skills/`, `.agents/skills/`, or `.flareskill/skills/`).
+4. Project installs write `flareskill.lock` so teammates can reproduce the same set.
 
 ## Install a skill
 
@@ -88,7 +107,6 @@ npx flareskill profile create my-stack --from-installed
 | `devops` | Docker, Kubernetes |
 | `platform` | Architect, security, QA |
 
-
 ## Skill format
 
 Every skill is a directory with `SKILL.md` (YAML frontmatter + instructions). See [docs/specification.md](docs/specification.md) and [docs/creating-skills.md](docs/creating-skills.md).
@@ -108,6 +126,15 @@ Every skill is a directory with `SKILL.md` (YAML frontmatter + instructions). Se
 | `security-engineer` | security | — |
 | `qa-engineer` | qa | — |
 
+## Links
+
+- [Registry website](https://flareskill.vercel.app)
+- [DeepWiki](https://deepwiki.com/nad33mahm3d/flareskill)
+- [npm](https://www.npmjs.com/package/flareskill)
+- [Skill specification](docs/specification.md)
+- [Creating skills](docs/creating-skills.md)
+- [Contributing](CONTRIBUTING.md)
+
 ## Development
 
 ```bash
@@ -122,8 +149,7 @@ Monorepo: `apps/cli`, `apps/web`, `packages/*`, `skills/*`, Git-based `registry/
 
 Browse the registry locally: `npm run web` → http://localhost:3000
 
-The public site deploys from `apps/web` to GitHub Pages (`https://nad33mahm3d.github.io/flareskill/`) after Pages is enabled (Settings → Pages → GitHub Actions).
-
+The public site is [https://flareskill.vercel.app](https://flareskill.vercel.app) (`apps/web`, deployed on Vercel from `main`).
 
 ## License
 

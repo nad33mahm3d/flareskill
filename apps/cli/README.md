@@ -2,6 +2,8 @@
 
 [![npm version](https://img.shields.io/npm/v/flareskill.svg)](https://www.npmjs.com/package/flareskill)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/nad33mahm3d/flareskill/blob/main/LICENSE)
+[![Registry](https://img.shields.io/badge/registry-flareskill.vercel.app-7dd3fc)](https://flareskill.vercel.app)
+[![DeepWiki](https://img.shields.io/badge/docs-DeepWiki-6e56cf)](https://deepwiki.com/nad33mahm3d/flareskill)
 
 Open-source registry and CLI for discovering, installing, sharing, and managing reusable AI agent skills.
 
@@ -47,6 +49,8 @@ npx flareskill profile install frontend
 
 ## Docs
 
+- [Registry website](https://flareskill.vercel.app)
+- [DeepWiki](https://deepwiki.com/nad33mahm3d/flareskill)
 - [Repository](https://github.com/nad33mahm3d/flareskill)
 - [Skill specification](https://github.com/nad33mahm3d/flareskill/blob/main/docs/specification.md)
 - [Creating skills](https://github.com/nad33mahm3d/flareskill/blob/main/docs/creating-skills.md)

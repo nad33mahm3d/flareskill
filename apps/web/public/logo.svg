@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="FlareSkill">
+  <rect width="128" height="128" rx="28" fill="#0c0f14"/>
+  <rect x="4" y="4" width="120" height="120" rx="24" fill="none" stroke="#2a3340" stroke-width="2"/>
+  <path
+    fill="#7dd3fc"
+    d="M64 18 L74 50 L108 52 L82 72 L92 106 L64 86 L36 106 L46 72 L20 52 L54 50 Z"
+  />
+  <circle cx="64" cy="64" r="10" fill="#0c0f14"/>
+  <circle cx="64" cy="64" r="5" fill="#c4b5fd"/>
+</svg>
