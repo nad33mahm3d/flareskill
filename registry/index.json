@@ -22,6 +22,26 @@
       "checksum": "f62dad36aca8dcf52025d63c71f8a19709d31c20614e94482aff1b47e674f116"
     },
     {
+      "name": "cursor-agent-engineer",
+      "version": "1.0.0",
+      "category": "engineering",
+      "description": "Cursor agent and skill authoring. Use when writing Cursor Agent Skills, rules, hooks, or automations that guide coding agents in a repo.",
+      "tags": [
+        "cursor",
+        "agents",
+        "skills",
+        "tooling"
+      ],
+      "author": "flareskill-community",
+      "license": "MIT",
+      "path": "skills/engineering/cursor-agent-engineer",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "checksum": "0f4c961e54c86af5fbbdf7b5d6807ba2da19fd95da8bd9ab79fc696f418097a5"
+    },
+    {
       "name": "database-engineer",
       "version": "1.0.0",
       "category": "backend",

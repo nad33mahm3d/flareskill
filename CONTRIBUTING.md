@@ -12,7 +12,7 @@ Thank you for contributing. FlareSkill is an open-source registry and CLI for re
 6. Open a pull request (use the PR template).
 7. Maintainers review (schema, security, quality).
 
-Looking for ideas? Open a [New skill proposal](https://github.com/nad33mahm3d/flareskill/issues/new?template=new_skill.md) or pick an issue labeled `good first issue`.
+Looking for ideas? See [docs/wanted.md](docs/wanted.md), open a [New skill proposal](https://github.com/nad33mahm3d/flareskill/issues/new?template=new_skill.md), or pick an issue labeled `good first issue` / `help wanted` / `status:ready`.
 
 ## Skill quality checklist
 
