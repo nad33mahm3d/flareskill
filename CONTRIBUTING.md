@@ -42,3 +42,7 @@ Workspaces live under `apps/` and `packages/`. Official skills live under `skill
 - Keep changes focused.
 - Do not include secrets.
 - Run `npm test` and `npm run validate:skills` before opening a PR.
+
+## Maintainers
+
+Release process (npm publish, GitHub Releases, planned OIDC trusted publishing): [docs/releasing.md](docs/releasing.md).

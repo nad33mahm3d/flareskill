@@ -73,25 +73,6 @@ npm run validate:skills
 
 Monorepo: `apps/cli`, `packages/*`, `skills/*`, Git-based `registry/index.json`.
 
-## Publish the CLI (maintainers)
-
-Publishing is done on **GitHub Actions** with an npm Automation token.
-
-1. Create an [npm Automation token](https://www.npmjs.com/settings/~/tokens).
-2. Add it as repo secret `NPM_TOKEN` (Settings → Secrets and variables → Actions).
-3. Bump `apps/cli/package.json` `version` on `main` if needed.
-4. Create a GitHub Release (tag like `v0.1.2`).
-
-The [Publish](.github/workflows/publish.yml) workflow runs tests, builds, and publishes `flareskill` to npm.
-
-```bash
-npx flareskill --help
-```
-
-Workspace libraries are bundled into the CLI; `commander`, `yaml`, and `zod` remain runtime dependencies.
-
-> Later: we can switch to npm Trusted Publishing (OIDC) so no long-lived token is required.
-
 ## License
 
 MIT. Individual skills declare their own license in `SKILL.md`.
