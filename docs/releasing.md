@@ -1,42 +1,38 @@
 # Releasing FlareSkill
 
-Maintainer notes for publishing the `flareskill` CLI to npm.
+Maintainer notes for publishing the `flareskill` CLI to npm via **Trusted Publishing (OIDC)**.
 
-## Current process (npm Automation token)
+No long-lived `NPM_TOKEN` is required for releases once the trusted publisher is configured.
 
-1. Create an [npm Automation token](https://www.npmjs.com/settings/~/tokens).
-2. Add it as the repo secret `NPM_TOKEN` (Settings → Secrets and variables → Actions).
-3. Bump `apps/cli/package.json` `version` on `main`.
-4. Create a GitHub Release (tag like `v0.1.3`).
+## One-time npm setup
 
-The [Publish](../.github/workflows/publish.yml) workflow runs tests, builds, and publishes `flareskill`. Workspace libraries are bundled into the CLI; `commander`, `yaml`, and `zod` remain runtime dependencies.
-
-## Planned: npm Trusted Publishing (OIDC)
-
-Goal: publish from GitHub Actions **without** a long-lived `NPM_TOKEN`.
-
-### Why not only OIDC today
-
-npm Trusted Publishing can only be configured after the package already exists on the registry. First publish (or bootstrap) still needs a token or a one-time local publish. After that, OIDC can replace the token for subsequent releases.
-
-### Target setup
-
-1. Keep [Publish](../.github/workflows/publish.yml) with `permissions.id-token: write` and `registry-url: https://registry.npmjs.org`.
-2. Use a GitHub Environment (e.g. `release`) on the publish job if you want protection rules.
-3. Ensure CI uses npm **≥ 11.5.1** and Node **≥ 22.14** (or Node 24).
-4. On [npmjs.com/package/flareskill](https://www.npmjs.com/package/flareskill) → **Settings → Trusted Publisher → GitHub Actions**:
+On [npmjs.com/package/flareskill](https://www.npmjs.com/package/flareskill) → **Settings → Trusted Publisher → GitHub Actions**:
 
 | Field | Value |
 | ----- | ----- |
 | Organization or user | `nad33mahm3d` |
 | Repository | `flareskill` |
 | Workflow filename | `publish.yml` |
-| Environment name | `release` (if used in the workflow) |
-| Allowed actions | **npm publish** |
+| Environment name | `release` |
+| Allowed actions | enable **npm publish** |
 
-5. Remove `NODE_AUTH_TOKEN` / `NPM_TOKEN` from the publish step once OIDC works.
-6. Optionally restrict token publishing on npm (`Require 2FA and disallow tokens`) after OIDC is verified.
+Fields are case-sensitive. After OIDC works, you can delete the GitHub secret `NPM_TOKEN` if it still exists, and optionally set npm publishing access to disallow classic tokens.
 
-### Bootstrap reminder
+## Cut a release
 
-If you ever need a fresh package name: publish once with a token (or `npm login` locally), attach the trusted publisher, then rely on GitHub Releases + OIDC only.
+1. Bump `apps/cli/package.json` `version` on `main`.
+2. Create a GitHub Release (tag like `v0.1.3`).
+
+The [Publish](../.github/workflows/publish.yml) workflow:
+
+- Runs on the `release` GitHub Environment
+- Uses `id-token: write` for OIDC
+- Tests, builds, and publishes `flareskill` with provenance
+
+Workspace libraries are bundled into the CLI; `commander`, `yaml`, and `zod` remain runtime dependencies.
+
+## Troubleshooting
+
+- **ENEEDAUTH / Unable to authenticate:** confirm the trusted publisher fields match exactly (especially `publish.yml` and environment `release`).
+- **Self-hosted runners:** not supported for npm OIDC; use GitHub-hosted runners.
+- **New package name:** create the package with a one-time token or local `npm publish` first, then attach the trusted publisher.

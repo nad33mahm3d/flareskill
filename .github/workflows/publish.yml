@@ -11,14 +11,20 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment: release
     steps:
       - uses: actions/checkout@v5
 
       - uses: actions/setup-node@v5
         with:
+          # Trusted publishing needs recent npm (bundled with Node 24)
           node-version: 24
-          cache: npm
           registry-url: https://registry.npmjs.org
+
+      - name: Ensure npm supports trusted publishing
+        run: |
+          npm install -g npm@^11.5.1
+          npm --version
 
       - name: Install
         run: npm ci
@@ -29,7 +35,6 @@ jobs:
       - name: Build
         run: npm run build
 
+      # Auth via OIDC trusted publishing — no NPM_TOKEN
       - name: Publish flareskill to npm
         run: npm publish -w flareskill --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
