@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CopyCommand } from "../../copy-command";
 import {
   getRegistry,
   getSkill,
@@ -40,28 +41,31 @@ export default async function SkillPage({
   }
 
   return (
-    <>
-      <p className="meta">
-        <Link href="/">← Skills</Link>
-      </p>
+    <article className="detail">
+      <Link className="back" href="/">
+        ← Skills
+      </Link>
+      <p className="kicker">{skill.category}</p>
       <h1>
         {skill.name}
-        <span className="meta"> @{skill.version}</span>
+        <span className="ver">@{skill.version}</span>
       </h1>
       <p className="lede">{skill.description}</p>
-      <pre>{installCommand(skill.name)}</pre>
-      <dl className="meta">
-        <p>
-          <strong>Category:</strong> {skill.category}
-        </p>
-        <p>
-          <strong>Author:</strong> {skill.author} · <strong>License:</strong>{" "}
-          {skill.license}
-        </p>
+      <CopyCommand command={installCommand(skill.name)} />
+      <dl className="facts">
+        <div>
+          <dt>Author</dt>
+          <dd>{skill.author}</dd>
+        </div>
+        <div>
+          <dt>License</dt>
+          <dd>{skill.license}</dd>
+        </div>
         {skill.dependencies?.length ? (
-          <p>
-            <strong>Depends on:</strong> {skill.dependencies.join(", ")}
-          </p>
+          <div>
+            <dt>Depends on</dt>
+            <dd>{skill.dependencies.join(", ")}</dd>
+          </div>
         ) : null}
       </dl>
       <div className="tags">
@@ -72,8 +76,10 @@ export default async function SkillPage({
         ))}
       </div>
       <p className="actions">
-        <a href={githubSkillUrl(skill.path)}>View source on GitHub</a>
+        <a className="btn btn-ghost" href={githubSkillUrl(skill.path)}>
+          View source on GitHub
+        </a>
       </p>
-    </>
+    </article>
   );
 }

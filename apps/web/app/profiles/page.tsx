@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CopyCommand } from "../copy-command";
 import { getRegistry, profileInstallCommand } from "../../lib/registry";
 
 export default function ProfilesIndexPage() {
@@ -6,23 +7,26 @@ export default function ProfilesIndexPage() {
 
   return (
     <>
-      <h1>Profiles</h1>
-      <p className="lede">
-        Named skill sets for a stack. Install every skill in a profile with one
-        command.
-      </p>
-      <div className="grid">
+      <section className="hero hero-compact">
+        <p className="kicker">Stacks</p>
+        <h1>Profiles</h1>
+        <p className="lede">
+          Named skill sets for a stack. Install every skill in a profile with
+          one command.
+        </p>
+      </section>
+      <div className="grid grid-2">
         {profiles.map((profile) => (
-          <Link
-            className="card"
-            href={`/profiles/${profile.name}`}
-            key={profile.name}
-          >
-            <h2>{profile.name}</h2>
-            <p style={{ margin: 0 }}>{profile.description}</p>
-            <p className="meta">{profile.skills.length} skills</p>
-            <pre style={{ marginTop: 12 }}>{profileInstallCommand(profile.name)}</pre>
-          </Link>
+          <article className="card card-profile" key={profile.name}>
+            <Link href={`/profiles/${profile.name}`}>
+              <div className="card-top">
+                <h2>{profile.name}</h2>
+                <span className="pill">{profile.skills.length} skills</span>
+              </div>
+              <p>{profile.description}</p>
+            </Link>
+            <CopyCommand command={profileInstallCommand(profile.name)} />
+          </article>
         ))}
       </div>
     </>

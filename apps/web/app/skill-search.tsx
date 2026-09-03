@@ -28,8 +28,8 @@ export function SkillSearch({ skills }: { skills: RegistrySkill[] }) {
 
   return (
     <div>
-      <label className="meta" htmlFor="skill-search">
-        Search skills
+      <label className="search-label" htmlFor="skill-search">
+        Search
       </label>
       <input
         id="skill-search"
@@ -40,20 +40,18 @@ export function SkillSearch({ skills }: { skills: RegistrySkill[] }) {
         placeholder="react, security, kubernetes…"
         autoComplete="off"
       />
-      <p className="meta">
-        {filtered.length} of {skills.length} skills
-      </p>
-      <div className="grid">
+      <p className="meta count">{filtered.length} of {skills.length}</p>
+      <div className="grid grid-2">
         {filtered.map((skill) => (
           <Link className="card" href={`/skills/${skill.name}`} key={skill.name}>
-            <h2>
-              {skill.name}
-              <span className="meta"> @{skill.version}</span>
-            </h2>
-            <p style={{ margin: 0 }}>{skill.description}</p>
+            <div className="card-top">
+              <h2>{skill.name}</h2>
+              <span className="meta">v{skill.version}</span>
+            </div>
+            <p className="clamp">{skill.description}</p>
             <div className="tags">
-              <span className="tag">{skill.category}</span>
-              {skill.tags.slice(0, 4).map((tag) => (
+              <span className="tag tag-accent">{skill.category}</span>
+              {skill.tags.slice(0, 3).map((tag) => (
                 <span className="tag" key={tag}>
                   {tag}
                 </span>
@@ -61,10 +59,10 @@ export function SkillSearch({ skills }: { skills: RegistrySkill[] }) {
             </div>
           </Link>
         ))}
-        {filtered.length === 0 ? (
-          <p className="lede">No skills matched that search.</p>
-        ) : null}
       </div>
+      {filtered.length === 0 ? (
+        <p className="lede empty">No skills matched that search.</p>
+      ) : null}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CopyCommand } from "../../copy-command";
 import {
   getProfile,
   getRegistry,
@@ -46,25 +47,26 @@ export default async function ProfilePage({
     .filter((skill) => skill != null);
 
   return (
-    <>
-      <p className="meta">
-        <Link href="/profiles">← Profiles</Link>
-      </p>
+    <article className="detail">
+      <Link className="back" href="/profiles">
+        ← Profiles
+      </Link>
+      <p className="kicker">Profile</p>
       <h1>{profile.name}</h1>
       <p className="lede">{profile.description}</p>
-      <pre>{profileInstallCommand(profile.name)}</pre>
-      <h2 style={{ fontSize: "1.15rem" }}>Skills</h2>
-      <div className="grid">
+      <CopyCommand command={profileInstallCommand(profile.name)} />
+      <h2 className="subhead">Skills in this profile</h2>
+      <div className="grid grid-2">
         {skills.map((skill) => (
           <Link className="card" href={`/skills/${skill.name}`} key={skill.name}>
-            <h2>
-              {skill.name}
-              <span className="meta"> @{skill.version}</span>
-            </h2>
-            <p style={{ margin: 0 }}>{skill.description}</p>
+            <div className="card-top">
+              <h2>{skill.name}</h2>
+              <span className="meta">v{skill.version}</span>
+            </div>
+            <p className="clamp">{skill.description}</p>
           </Link>
         ))}
       </div>
-    </>
+    </article>
   );
 }

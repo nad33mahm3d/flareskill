@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CopyCommand } from "./copy-command";
 import { SkillSearch } from "./skill-search";
 import { getRegistry } from "../lib/registry";
 
@@ -7,33 +8,58 @@ export default function HomePage() {
 
   return (
     <>
-      <h1>Reusable AI agent skills</h1>
-      <p className="lede">
-        Discover versioned skills for Cursor, Claude Code, Codex, and generic
-        agents. Install with one command.
-      </p>
-      <pre>
-        {`npx flareskill install senior-react-engineer --agent cursor`}
-      </pre>
+      <section className="hero">
+        <p className="kicker">Open-source skill registry</p>
+        <h1>Reusable skills for AI coding agents</h1>
+        <p className="lede">
+          Versioned instructions for Cursor, Claude Code, Codex, and generic
+          agents. Search the catalog, install with one command, lock versions
+          with your team.
+        </p>
+        <div className="hero-actions">
+          <a className="btn btn-primary" href="#skills">
+            Browse skills
+          </a>
+          <Link className="btn btn-ghost" href="/profiles">
+            View profiles
+          </Link>
+        </div>
+        <CopyCommand command="npx flareskill install senior-react-engineer --agent cursor" />
+      </section>
+
       {profiles.length > 0 ? (
-        <section style={{ margin: "32px 0" }}>
-          <h2 style={{ margin: "0 0 12px", fontSize: "1.15rem" }}>Profiles</h2>
-          <div className="grid">
+        <section className="section">
+          <div className="section-head">
+            <h2>Profiles</h2>
+            <Link href="/profiles">See all</Link>
+          </div>
+          <p className="section-lede">
+            Install a whole stack at once.
+          </p>
+          <div className="grid grid-2">
             {profiles.map((profile) => (
               <Link
-                className="card"
+                className="card card-profile"
                 href={`/profiles/${profile.name}`}
                 key={profile.name}
               >
-                <h2>{profile.name}</h2>
-                <p style={{ margin: 0 }}>{profile.description}</p>
-                <p className="meta">{profile.skills.length} skills</p>
+                <div className="card-top">
+                  <h2>{profile.name}</h2>
+                  <span className="pill">{profile.skills.length} skills</span>
+                </div>
+                <p>{profile.description}</p>
               </Link>
             ))}
           </div>
         </section>
       ) : null}
-      <SkillSearch skills={skills} />
+
+      <section className="section" id="skills">
+        <div className="section-head">
+          <h2>Skills</h2>
+        </div>
+        <SkillSearch skills={skills} />
+      </section>
     </>
   );
 }
