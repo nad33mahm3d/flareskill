@@ -1,6 +1,6 @@
 {
   "name": "flareskill",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "CLI for discovering, installing, and managing reusable AI agent skills",
   "license": "MIT",
   "type": "module",
@@ -8,12 +8,12 @@
     "flareskill": "./dist/index.js"
   },
   "files": [
-    "dist",
+    "dist/index.js",
     "README.md",
     "LICENSE"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "repository": {
     "type": "git",

@@ -1,10 +1,15 @@
 # FlareSkill
 
+[![npm version](https://img.shields.io/npm/v/flareskill.svg)](https://www.npmjs.com/package/flareskill)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/nad33mahm3d/flareskill/blob/main/LICENSE)
+
 Open-source registry and CLI for discovering, installing, sharing, and managing reusable AI agent skills.
 
 ```bash
-npx flareskill install senior-react-engineer
+npx flareskill install senior-react-engineer --agent cursor
 ```
+
+![FlareSkill install demo](https://raw.githubusercontent.com/nad33mahm3d/flareskill/main/docs/assets/demo.gif)
 
 ## Install a skill
 

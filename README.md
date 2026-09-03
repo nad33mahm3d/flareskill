@@ -1,10 +1,18 @@
 # FlareSkill
 
+[![npm version](https://img.shields.io/npm/v/flareskill.svg)](https://www.npmjs.com/package/flareskill)
+[![CI](https://github.com/nad33mahm3d/flareskill/actions/workflows/ci.yml/badge.svg)](https://github.com/nad33mahm3d/flareskill/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
 **FlareSkill is an open-source registry and CLI for discovering, installing, sharing, and managing reusable AI agent skills.**
 
+## Quick start
+
 ```bash
-npx flareskill install senior-react-engineer
+npx flareskill install senior-react-engineer --agent cursor
 ```
+
+![FlareSkill install demo](docs/assets/demo.gif)
 
 - One standard format
 - One CLI
@@ -67,21 +75,22 @@ Monorepo: `apps/cli`, `packages/*`, `skills/*`, Git-based `registry/index.json`.
 
 ## Publish the CLI (maintainers)
 
-Publishing is done on **GitHub**, not from a local machine.
+Publishing is done on **GitHub Actions** with an npm Automation token.
 
-1. Create an [npm access token](https://www.npmjs.com/settings/~/tokens) (Automation).
-2. Add it as a repository secret named `NPM_TOKEN`  
-   (Settings → Secrets and variables → Actions).
+1. Create an [npm Automation token](https://www.npmjs.com/settings/~/tokens).
+2. Add it as repo secret `NPM_TOKEN` (Settings → Secrets and variables → Actions).
 3. Bump `apps/cli/package.json` `version` on `main` if needed.
-4. Create a GitHub Release (tag like `v0.1.0`).
+4. Create a GitHub Release (tag like `v0.1.2`).
 
-The [Publish](.github/workflows/publish.yml) workflow runs tests, builds, and publishes `flareskill` to npm. After that:
+The [Publish](.github/workflows/publish.yml) workflow runs tests, builds, and publishes `flareskill` to npm.
 
 ```bash
 npx flareskill --help
 ```
 
 Workspace libraries are bundled into the CLI; `commander`, `yaml`, and `zod` remain runtime dependencies.
+
+> Later: we can switch to npm Trusted Publishing (OIDC) so no long-lived token is required.
 
 ## License
 

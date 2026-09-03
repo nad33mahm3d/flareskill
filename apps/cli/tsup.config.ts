@@ -4,9 +4,9 @@ export default defineConfig({
   entry: ["src/index.ts"],
   format: ["esm"],
   platform: "node",
-  target: "node18",
+  target: "node20",
   clean: true,
-  sourcemap: true,
+  sourcemap: false,
   splitting: false,
   banner: {
     js: "#!/usr/bin/env node",
