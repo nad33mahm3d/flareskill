@@ -107,6 +107,7 @@ npx flareskill profile create my-stack --from-installed
 | `devops` | Docker, Kubernetes |
 | `platform` | Architect, security, QA |
 | `data` | Database, TypeScript, API design |
+| `mobile` | React, React Native |
 
 ## Skill format
 
@@ -122,13 +123,16 @@ Every skill is a directory with `SKILL.md` (YAML frontmatter + instructions). Se
 | `database-engineer` | backend | — |
 | `senior-react-engineer` | frontend | — |
 | `senior-nextjs-engineer` | frontend | `senior-react-engineer` |
+| `mobile-react-native-engineer` | frontend | `senior-react-engineer` |
 | `kubernetes-engineer` | devops | `docker-engineer` |
 | `docker-engineer` | devops | — |
+| `observability-engineer` | devops | — |
 | `system-architect` | architecture | `security-engineer` |
 | `security-engineer` | security | — |
 | `qa-engineer` | qa | — |
 | `typescript-engineer` | engineering | — |
 | `api-design` | engineering | — |
+| `graphql-engineer` | engineering | — |
 | `technical-writer` | engineering | — |
 | `product-manager` | engineering | — |
 

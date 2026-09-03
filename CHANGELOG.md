@@ -7,6 +7,11 @@
 - Public registry website: https://flareskill.vercel.app (search, profiles, blog, llm.txt)
 - Docs and npm metadata point at the Vercel registry and guides
 
+## Unreleased
+
+- Skills: `graphql-engineer`, `mobile-react-native-engineer`, `observability-engineer`
+- Profile: `mobile` (React + React Native)
+
 ## 0.2.0
 
 - Search, update, lockfile, skill dependencies

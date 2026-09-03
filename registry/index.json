@@ -62,6 +62,26 @@
       "checksum": "c3ec1cfd94c4f4e808fa0607e2fa91b44a8e10a58d2f38e69b7f7c9f15b8b912"
     },
     {
+      "name": "graphql-engineer",
+      "version": "1.0.0",
+      "category": "engineering",
+      "description": "GraphQL API engineering. Use when designing schemas, resolvers, DataLoader patterns, auth, or reviewing N+1 and over-fetching issues.",
+      "tags": [
+        "graphql",
+        "api",
+        "schema",
+        "dataloader"
+      ],
+      "author": "flareskill-community",
+      "license": "MIT",
+      "path": "skills/engineering/graphql-engineer",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "checksum": "f8ce43aa0d690fd3c6000b3ca0f47e104dfdff8c13d6d45824c34cbe192d83e4"
+    },
+    {
       "name": "kubernetes-engineer",
       "version": "1.0.0",
       "category": "devops",
@@ -83,6 +103,50 @@
       "dependencies": [
         "docker-engineer@1.x"
       ]
+    },
+    {
+      "name": "mobile-react-native-engineer",
+      "version": "1.0.0",
+      "category": "frontend",
+      "description": "React Native / Expo mobile engineering. Use when building screens, navigation, native modules, performance, or offline-aware mobile UX.",
+      "tags": [
+        "react-native",
+        "expo",
+        "mobile",
+        "navigation"
+      ],
+      "author": "flareskill-community",
+      "license": "MIT",
+      "path": "skills/frontend/mobile-react-native-engineer",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "checksum": "bc354a63ed3ea51e1cc3cb9b29f626203d44dcb30955867bc60a3f4552152a0d",
+      "dependencies": [
+        "senior-react-engineer"
+      ]
+    },
+    {
+      "name": "observability-engineer",
+      "version": "1.0.0",
+      "category": "devops",
+      "description": "Observability engineering. Use when adding logging, metrics, tracing, SLOs, alerting, or reviewing production signal quality.",
+      "tags": [
+        "observability",
+        "logging",
+        "metrics",
+        "tracing",
+        "slo"
+      ],
+      "author": "flareskill-community",
+      "license": "MIT",
+      "path": "skills/devops/observability-engineer",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "checksum": "69553767009b73b4b4eb0d11f688d1b8cac748113bbcbd098a5e5c66ce171947"
     },
     {
       "name": "product-manager",
@@ -348,6 +412,14 @@
       "skills": [
         "senior-react-engineer",
         "senior-nextjs-engineer"
+      ]
+    },
+    {
+      "name": "mobile",
+      "description": "Mobile apps: React Native / Expo with shared React fundamentals.",
+      "skills": [
+        "senior-react-engineer",
+        "mobile-react-native-engineer"
       ]
     },
     {
