@@ -12,6 +12,8 @@ tags:
 category: frontend
 agents:
   - cursor
+  - claude
+  - codex
   - generic
 ---
 

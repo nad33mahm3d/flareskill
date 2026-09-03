@@ -2,7 +2,7 @@
 
 FlareSkill ships as a **standard + CLI + GitHub registry + starter skills**.
 
-## v0.1 (current)
+## v0.1
 
 - Skill specification (`SKILL.md` + metadata)
 - CLI: `install`, `uninstall`, `list`, `validate`, `create`, `info`
@@ -10,14 +10,15 @@ FlareSkill ships as a **standard + CLI + GitHub registry + starter skills**.
 - Cursor and generic adapters
 - Official starter skills
 
-## v0.2
+## v0.2 (current)
 
-- Search
-- Update
-- Lock file (`flareskill.lock`)
-- Skill dependencies
-- Additional adapters (Claude, Codex)
-- Stronger validation
+- Search (`flareskill search`)
+- Update (`flareskill update`) + outdated listing
+- Lock file (`flareskill.lock`) + `install` sync with checksum verification
+- Skill dependencies (ranges, cycles, transitive install, skip if satisfied)
+- Adapters: Cursor, Claude Code, Codex, generic
+- Stronger validation (structure, deps, agents, blocked files, safety heuristics)
+- `flareskill init`, quiet install UX, E2E smoke in CI
 
 ## v0.3
 

@@ -54,6 +54,22 @@ You are a senior Spring Boot engineer...
 
 `homepage`, `repository`, `documentation`, `icon`, `maintainers`, `keywords`, `dependencies`, `agents`, `compatibility`
 
+### Dependencies
+
+Declare other skills this package needs:
+
+```yaml
+dependencies:
+  - security-engineer@1.x
+  - code-reviewer@^1.0.0
+```
+
+Supported ranges: exact (`1.2.0`), major (`1.x`), caret (`^1.2.0`), tilde (`~1.2.0`), or `*`. `flareskill install` resolves transitive dependencies, detects cycles, and installs dependencies first. Use `--no-deps` to skip.
+
+### Agents
+
+`agents` lists compatible adapters: `cursor`, `claude`, `codex`, `generic`.
+
 If both frontmatter and `metadata.yaml` are present, **frontmatter wins** on conflicting keys.
 
 ## Categories
@@ -70,10 +86,19 @@ Validate locally:
 npx flareskill validate ./path-to-skill
 ```
 
-## Cursor compatibility
+## Cursor / Claude / Codex compatibility
 
-Cursor reads `SKILL.md` with at least `name` and `description`. Extra FlareSkill fields are allowed. The Cursor adapter installs into `.cursor/skills/<name>/` (project) or `~/.cursor/skills/<name>/` (global).
+Adapters install the same `SKILL.md` package into agent-specific roots:
+
+| Agent | Project path | Global path |
+| ----- | ------------ | ----------- |
+| Cursor | `.cursor/skills/<name>/` | `~/.cursor/skills/<name>/` |
+| Claude Code | `.claude/skills/<name>/` | `~/.claude/skills/<name>/` |
+| Codex | `.agents/skills/<name>/` | `~/.codex/skills/<name>/` |
+| Generic | `.flareskill/skills/<name>/` | `~/.flareskill/skills/<name>/` |
+
+Auto-detect order: Cursor → Claude → Codex → generic.
 
 ## Safety
 
-Skill packages must not contain absolute paths or `..` segments. Install never writes outside the chosen skills root.
+Skill packages must not contain absolute paths, `..` segments, blocked binary extensions, or files over 1MB. Install never writes outside the chosen skills root. Validation also flags empty bodies, invalid dependency refs, unknown agents, and suspicious instruction phrases.

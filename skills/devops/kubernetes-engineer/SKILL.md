@@ -12,7 +12,11 @@ tags:
 category: devops
 agents:
   - cursor
+  - claude
+  - codex
   - generic
+dependencies:
+  - docker-engineer@1.x
 ---
 
 # Kubernetes Engineer

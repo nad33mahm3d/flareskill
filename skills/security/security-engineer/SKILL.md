@@ -12,6 +12,8 @@ tags:
 category: security
 agents:
   - cursor
+  - claude
+  - codex
   - generic
 ---
 

@@ -92,11 +92,18 @@
     },
     "dependencies": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*(?:@(?:\\*|[\\^~]?[0-9]+(?:\\.(?:[0-9]+|x)){0,2}))?$"
+      },
+      "description": "Skill dependency refs (name, name@1.2.0, name@1.x, name@^1.0.0, name@~1.0.0)"
     },
     "agents": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string",
+        "enum": ["cursor", "claude", "codex", "generic"]
+      }
     },
     "compatibility": {
       "type": "object",

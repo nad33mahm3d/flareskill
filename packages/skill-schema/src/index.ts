@@ -22,6 +22,9 @@ export const SKILL_CATEGORIES = [
 
 export type SkillCategory = (typeof SKILL_CATEGORIES)[number];
 
+export const AGENT_NAMES = ["cursor", "claude", "codex", "generic"] as const;
+export type KnownAgentName = (typeof AGENT_NAMES)[number];
+
 export const skillNameSchema = z
   .string()
   .min(1)
@@ -34,6 +37,14 @@ export const skillNameSchema = z
 export const skillVersionSchema = z
   .string()
   .regex(/^[0-9]+\.[0-9]+\.[0-9]+$/, "Version must be semver MAJOR.MINOR.PATCH");
+
+/** Dependency refs: name, name@1.2.0, name@1.x, name@^1.2.0, name@~1.2.0 */
+export const skillDependencyRefSchema = z
+  .string()
+  .regex(
+    /^[a-z0-9]+(?:-[a-z0-9]+)*(?:@(?:\*|[\^~]?[0-9]+(?:\.(?:[0-9]+|x)){0,2}))?$/,
+    "Dependency must be name or name@version/range (e.g. foo@1.2.0, foo@1.x, foo@^1.0.0)",
+  );
 
 export const skillMetadataSchema = z
   .object({
@@ -50,8 +61,8 @@ export const skillMetadataSchema = z
     icon: z.string().min(1).optional(),
     maintainers: z.array(z.string().min(1)).optional(),
     keywords: z.array(z.string().min(1)).optional(),
-    dependencies: z.array(z.string().min(1)).optional(),
-    agents: z.array(z.string().min(1)).optional(),
+    dependencies: z.array(skillDependencyRefSchema).optional(),
+    agents: z.array(z.enum(AGENT_NAMES)).optional(),
     compatibility: z.record(z.string()).optional(),
   })
   .strict();

@@ -2,7 +2,13 @@ import { mkdtemp, mkdir, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { CursorAdapter, GenericAdapter } from "./index.js";
+import {
+  ClaudeAdapter,
+  CodexAdapter,
+  CursorAdapter,
+  GenericAdapter,
+  resolveAgent,
+} from "./index.js";
 import type { SkillPackage } from "@flareskill/skill-schema";
 
 async function makeSkill(): Promise<SkillPackage> {
@@ -48,11 +54,38 @@ describe("adapters", () => {
     expect(dest).toBe(path.join(projectRoot, ".cursor", "skills", "demo-skill"));
   });
 
-  it("detects Cursor when .cursor exists", async () => {
+  it("installs a Claude skill under .claude/skills", async () => {
     const projectRoot = await mkdtemp(path.join(tmpdir(), "proj-"));
+    const skill = await makeSkill();
+    const dest = await new ClaudeAdapter().install(skill, {
+      global: false,
+      projectRoot,
+    });
+    expect(dest).toBe(path.join(projectRoot, ".claude", "skills", "demo-skill"));
+  });
+
+  it("installs a Codex skill under .agents/skills", async () => {
+    const projectRoot = await mkdtemp(path.join(tmpdir(), "proj-"));
+    const skill = await makeSkill();
+    const dest = await new CodexAdapter().install(skill, {
+      global: false,
+      projectRoot,
+    });
+    expect(dest).toBe(path.join(projectRoot, ".agents", "skills", "demo-skill"));
+  });
+
+  it("auto-resolves cursor, then claude, then codex", async () => {
+    const projectRoot = await mkdtemp(path.join(tmpdir(), "proj-"));
+    expect(await resolveAgent("auto", { global: false, projectRoot })).toBe(
+      "generic",
+    );
+    await mkdir(path.join(projectRoot, ".claude"));
+    expect(await resolveAgent("auto", { global: false, projectRoot })).toBe(
+      "claude",
+    );
     await mkdir(path.join(projectRoot, ".cursor"));
-    expect(await new CursorAdapter().detect({ global: false, projectRoot })).toBe(
-      true,
+    expect(await resolveAgent("auto", { global: false, projectRoot })).toBe(
+      "cursor",
     );
   });
 });

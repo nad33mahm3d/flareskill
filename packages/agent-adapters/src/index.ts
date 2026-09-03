@@ -1,10 +1,15 @@
 import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { SkillPackage } from "@flareskill/skill-schema";
+import {
+  AGENT_NAMES,
+  type KnownAgentName,
+  type SkillPackage,
+} from "@flareskill/skill-schema";
 import { isUnsafeRelative } from "@flareskill/skill-validator";
 
-export type AgentName = "cursor" | "generic";
+export { AGENT_NAMES };
+export type AgentName = KnownAgentName;
 
 export type InstallOpts = {
   global: boolean;
@@ -17,6 +22,10 @@ export interface AgentAdapter {
   detect(opts: InstallOpts): Promise<boolean>;
   install(skill: SkillPackage, opts: InstallOpts): Promise<string>;
   uninstall(skillName: string, opts: InstallOpts): Promise<void>;
+}
+
+export function isAgentName(value: string): value is AgentName {
+  return (AGENT_NAMES as readonly string[]).includes(value);
 }
 
 function home(opts: InstallOpts): string {
@@ -75,7 +84,23 @@ async function copySkillInto(skill: SkillPackage, destRoot: string): Promise<voi
   }
 }
 
-export class GenericAdapter implements AgentAdapter {
+abstract class DirectoryAdapter implements AgentAdapter {
+  abstract name: AgentName;
+  abstract destDir(skillName: string, opts: InstallOpts): string;
+  abstract detect(opts: InstallOpts): Promise<boolean>;
+
+  async install(skill: SkillPackage, opts: InstallOpts): Promise<string> {
+    const dest = this.destDir(skill.name, opts);
+    await copySkillInto(skill, dest);
+    return dest;
+  }
+
+  async uninstall(skillName: string, opts: InstallOpts): Promise<void> {
+    await rm(this.destDir(skillName, opts), { recursive: true, force: true });
+  }
+}
+
+export class GenericAdapter extends DirectoryAdapter {
   name: AgentName = "generic";
 
   destDir(skillName: string, opts: InstallOpts): string {
@@ -88,19 +113,9 @@ export class GenericAdapter implements AgentAdapter {
   async detect(_opts: InstallOpts): Promise<boolean> {
     return true;
   }
-
-  async install(skill: SkillPackage, opts: InstallOpts): Promise<string> {
-    const dest = this.destDir(skill.name, opts);
-    await copySkillInto(skill, dest);
-    return dest;
-  }
-
-  async uninstall(skillName: string, opts: InstallOpts): Promise<void> {
-    await rm(this.destDir(skillName, opts), { recursive: true, force: true });
-  }
 }
 
-export class CursorAdapter implements AgentAdapter {
+export class CursorAdapter extends DirectoryAdapter {
   name: AgentName = "cursor";
 
   destDir(skillName: string, opts: InstallOpts): string {
@@ -113,20 +128,45 @@ export class CursorAdapter implements AgentAdapter {
   async detect(opts: InstallOpts): Promise<boolean> {
     return pathExists(path.join(opts.projectRoot, ".cursor"));
   }
+}
 
-  async install(skill: SkillPackage, opts: InstallOpts): Promise<string> {
-    const dest = this.destDir(skill.name, opts);
-    await copySkillInto(skill, dest);
-    return dest;
+export class ClaudeAdapter extends DirectoryAdapter {
+  name: AgentName = "claude";
+
+  destDir(skillName: string, opts: InstallOpts): string {
+    if (opts.global) {
+      return path.join(home(opts), ".claude", "skills", skillName);
+    }
+    return path.join(opts.projectRoot, ".claude", "skills", skillName);
   }
 
-  async uninstall(skillName: string, opts: InstallOpts): Promise<void> {
-    await rm(this.destDir(skillName, opts), { recursive: true, force: true });
+  async detect(opts: InstallOpts): Promise<boolean> {
+    return pathExists(path.join(opts.projectRoot, ".claude"));
+  }
+}
+
+export class CodexAdapter extends DirectoryAdapter {
+  name: AgentName = "codex";
+
+  destDir(skillName: string, opts: InstallOpts): string {
+    if (opts.global) {
+      return path.join(home(opts), ".codex", "skills", skillName);
+    }
+    return path.join(opts.projectRoot, ".agents", "skills", skillName);
+  }
+
+  async detect(opts: InstallOpts): Promise<boolean> {
+    return (
+      (await pathExists(path.join(opts.projectRoot, ".agents"))) ||
+      (await pathExists(path.join(opts.projectRoot, ".codex")))
+    );
   }
 }
 
 const adapters: Record<AgentName, AgentAdapter> = {
   cursor: new CursorAdapter(),
+  claude: new ClaudeAdapter(),
+  codex: new CodexAdapter(),
   generic: new GenericAdapter(),
 };
 
@@ -141,9 +181,23 @@ export async function resolveAgent(
   if (requested !== "auto") {
     return requested;
   }
-  const cursor = adapters.cursor;
-  if (await cursor.detect(opts)) {
-    return "cursor";
+  for (const name of ["cursor", "claude", "codex"] as const) {
+    if (await adapters[name].detect(opts)) {
+      return name;
+    }
   }
   return "generic";
+}
+
+export function formatAgentLabel(agent: AgentName): string {
+  switch (agent) {
+    case "cursor":
+      return "Cursor";
+    case "claude":
+      return "Claude Code";
+    case "codex":
+      return "Codex";
+    default:
+      return "Generic";
+  }
 }

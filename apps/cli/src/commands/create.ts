@@ -36,6 +36,11 @@ license: MIT
 tags:
   - todo
 category: engineering
+agents:
+  - cursor
+  - claude
+  - codex
+  - generic
 ---
 
 # ${title}

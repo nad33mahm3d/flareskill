@@ -12,6 +12,8 @@ tags:
 category: devops
 agents:
   - cursor
+  - claude
+  - codex
   - generic
 ---
 

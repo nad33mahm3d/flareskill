@@ -1,24 +1,19 @@
-# FlareSkill demo tape (Charm VHS)
-# Record: cd /tmp/demo && PATH=... vhs path/to/demo.tape
-# Prefer regenerating via repo docs; see CONTRIBUTING if needed.
+# Source of truth for the demo flow. Prefer `npm run demo:gif` which injects
+# the absolute repo path. This tape is kept as a readable reference.
 
-Output demo.gif
+Output docs/assets/demo.gif
+Set FontSize 14
+Set Width 980
+Set Height 580
+Set Theme "Catppuccin Mocha"
+Set Padding 16
+Set TypingSpeed 40ms
 Set Shell zsh
-Set FontSize 15
-Set Width 1000
-Set Height 420
-Set Padding 18
-Set Theme "Catppuccin Latte"
-Set TypingSpeed 35ms
 
-Type "npx flareskill install senior-react-engineer --agent cursor"
-Enter
-Sleep 4s
+# Use: npm run demo:gif  (scripts/record-demo.sh)
 
-Type "ls .cursor/skills/senior-react-engineer"
+Hide
+Type "# Search → install (claude) → outdated → lock sync → codex -q → list"
 Enter
-Sleep 1.5s
-
-Type "npx flareskill list"
-Enter
+Show
 Sleep 2s

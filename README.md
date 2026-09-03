@@ -9,34 +9,60 @@
 ## Quick start
 
 ```bash
+npx flareskill init
+npx flareskill search react
 npx flareskill install senior-react-engineer --agent cursor
 ```
 
-![FlareSkill install demo](docs/assets/demo.gif)
+![FlareSkill CLI demo](docs/assets/demo.gif)
+
+Regenerate the GIF with [VHS](https://github.com/charmbracelet/vhs): `npm run demo:gif`
 
 - One standard format
 - One CLI
-- Multiple AI agents
-- Versioned skills
+- Multiple AI agents (Cursor, Claude Code, Codex, generic)
+- Versioned skills + lockfile
+- Dependencies, search, and update
 - Open source
-- Community driven
 
 ## Install a skill
 
 ```bash
 npx flareskill install senior-spring-boot-engineer
 npx flareskill install senior-react-engineer --agent cursor
+npx flareskill install senior-nextjs-engineer --agent claude
+npx flareskill install docker-engineer --agent codex
 npx flareskill install kubernetes-engineer --global
 ```
 
-Project installs go to `.cursor/skills/` when Cursor is detected, otherwise `.flareskill/skills/`. Global installs use `~/.cursor/skills/` or `~/.flareskill/skills/`.
+Project installs go to `.cursor/skills/`, `.claude/skills/`, `.agents/skills/`, or `.flareskill/skills/` depending on `--agent` / auto-detect. Global installs use the matching home directory (`~/.cursor`, `~/.claude`, `~/.codex`, or `~/.flareskill`).
+
+## Search, update, lockfile
+
+```bash
+npx flareskill search security
+npx flareskill outdated
+npx flareskill update
+npx flareskill install                 # sync pinned versions from flareskill.lock
+npx flareskill install <name> --no-deps
+npx flareskill install <name> -q       # quieter output, still prints a summary
+```
+
+Project installs write `flareskill.lock` (versions + checksums). Teammates run `npx flareskill install` with no args to reproduce the same set. Lock sync **fails** if a pinned checksum no longer matches the registry (drift). Declared `dependencies` install automatically unless you pass `--no-deps`; already-satisfied versions are skipped.
 
 ## CLI
 
 ```bash
+npx flareskill init
+npx flareskill search <query>
 npx flareskill validate ./my-skill
 npx flareskill create my-new-skill
 npx flareskill install <name>[@version]
+npx flareskill install                 # sync from flareskill.lock
+npx flareskill install <name> --no-deps
+npx flareskill install <name> -q
+npx flareskill outdated
+npx flareskill update [name...]
 npx flareskill uninstall <name>
 npx flareskill list
 npx flareskill info <name>
@@ -46,20 +72,20 @@ npx flareskill info <name>
 
 Every skill is a directory with `SKILL.md` (YAML frontmatter + instructions). See [docs/specification.md](docs/specification.md) and [docs/creating-skills.md](docs/creating-skills.md).
 
-## Official skills (v0.1)
+## Official skills
 
-| Skill | Category |
-| ----- | -------- |
-| `senior-spring-boot-engineer` | backend |
-| `senior-nodejs-engineer` | backend |
-| `senior-python-engineer` | backend |
-| `senior-react-engineer` | frontend |
-| `senior-nextjs-engineer` | frontend |
-| `kubernetes-engineer` | devops |
-| `docker-engineer` | devops |
-| `system-architect` | architecture |
-| `security-engineer` | security |
-| `qa-engineer` | qa |
+| Skill | Category | Depends on |
+| ----- | -------- | ---------- |
+| `senior-spring-boot-engineer` | backend | `security-engineer` |
+| `senior-nodejs-engineer` | backend | — |
+| `senior-python-engineer` | backend | — |
+| `senior-react-engineer` | frontend | — |
+| `senior-nextjs-engineer` | frontend | `senior-react-engineer` |
+| `kubernetes-engineer` | devops | `docker-engineer` |
+| `docker-engineer` | devops | — |
+| `system-architect` | architecture | `security-engineer` |
+| `security-engineer` | security | — |
+| `qa-engineer` | qa | — |
 
 ## Development
 

@@ -52,4 +52,52 @@ describe("validateSkillDirectory", () => {
       result.warnings.some((w) => w.message.includes("delete all files")),
     ).toBe(true);
   });
+
+  it("rejects empty bodies and blocked file types", async () => {
+    const dir = await mkdtemp(path.join(tmpdir(), "flareskill-strong-"));
+    await writeFile(path.join(dir, "SKILL.md"), `${FRONTMATTER}\n\n`);
+    const empty = await validateSkillDirectory(dir);
+    expect(empty.ok).toBe(false);
+    expect(empty.errors.some((e) => e.message.includes("empty"))).toBe(true);
+
+    await writeFile(
+      path.join(dir, "SKILL.md"),
+      `${FRONTMATTER}\n# Demo\n\nDo the work carefully.\n`,
+    );
+    await writeFile(path.join(dir, "malware.exe"), "x");
+    const blocked = await validateSkillDirectory(dir);
+    expect(blocked.ok).toBe(false);
+    expect(blocked.errors.some((e) => e.message.includes("Blocked"))).toBe(
+      true,
+    );
+  });
+
+  it("rejects invalid dependency refs", async () => {
+    const dir = await mkdtemp(path.join(tmpdir(), "flareskill-deps-"));
+    await writeFile(
+      path.join(dir, "SKILL.md"),
+      `---
+name: demo-skill
+version: 1.0.0
+description: A demo skill for tests with a longer description.
+author: flareskill-community
+license: MIT
+tags:
+  - demo
+category: engineering
+dependencies:
+  - Not A Valid Ref!!!
+---
+
+# Demo
+
+Body text.
+`,
+    );
+    const result = await validateSkillDirectory(dir);
+    expect(result.ok).toBe(false);
+    expect(result.errors.some((e) => e.message.includes("dependencies"))).toBe(
+      true,
+    );
+  });
 });

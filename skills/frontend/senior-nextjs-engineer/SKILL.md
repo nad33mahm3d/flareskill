@@ -12,7 +12,11 @@ tags:
 category: frontend
 agents:
   - cursor
+  - claude
+  - codex
   - generic
+dependencies:
+  - senior-react-engineer@1.x
 ---
 
 # Senior Next.js Engineer

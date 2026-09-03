@@ -18,7 +18,7 @@ A clear description of what went wrong.
 - flareskill version (`npx flareskill --version`):
 - Node version:
 - OS:
-- Agent (`cursor` / `generic`):
+- Agent (`cursor` / `claude` / `codex` / `generic`):
 
 **Additional context**
 Logs, screenshots, or related skills.

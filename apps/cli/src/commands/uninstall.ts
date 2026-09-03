@@ -1,5 +1,6 @@
 import { getAdapter, type AgentName } from "@flareskill/agent-adapters";
 import { findProjectRoot } from "../core/filesystem.js";
+import { removeLockInstall } from "../core/lockfile.js";
 import * as log from "../core/log.js";
 import { readManifest, removeInstall } from "../core/manifest.js";
 
@@ -23,5 +24,8 @@ export async function runUninstall(
     projectRoot,
   });
   await removeInstall(scope, projectRoot, name);
+  if (scope === "project") {
+    await removeLockInstall(projectRoot, name);
+  }
   log.ok(`Uninstalled ${name}`);
 }

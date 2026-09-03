@@ -25,7 +25,9 @@ Fill in the YAML frontmatter (required fields are listed in the [specification](
 - Architecture, security, testing, and error handling as they apply
 - Concrete examples
 
-Write `description` in third person, including **what** the skill covers and **when** to use it. Cursor and similar agents use the description for discovery.
+Write `description` in third person, including **what** the skill covers and **when** to use it. Cursor, Claude Code, Codex, and similar agents use the description for discovery.
+
+Optional `dependencies` (e.g. `senior-react-engineer@1.x`) are installed automatically with `flareskill install` unless you pass `--no-deps`.
 
 ## Validate
 

@@ -12,6 +12,8 @@ tags:
 category: backend
 agents:
   - cursor
+  - claude
+  - codex
   - generic
 ---
 

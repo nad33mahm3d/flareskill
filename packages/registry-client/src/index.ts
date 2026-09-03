@@ -19,6 +19,12 @@ export type RegistryEntry = {
   files: string[];
   checksum: string;
   repository?: string;
+  dependencies?: string[];
+};
+
+export type DependencyRef = {
+  name: string;
+  range?: string;
 };
 
 export type RegistryIndex = {
@@ -62,7 +68,7 @@ export function resolveEntry(
   );
 }
 
-function compareSemver(a: string, b: string): number {
+export function compareSemver(a: string, b: string): number {
   const pa = a.split(".").map(Number);
   const pb = b.split(".").map(Number);
   for (let i = 0; i < 3; i += 1) {
@@ -73,6 +79,199 @@ function compareSemver(a: string, b: string): number {
     }
   }
   return 0;
+}
+
+export function parseDependencyRef(ref: string): DependencyRef {
+  const at = ref.lastIndexOf("@");
+  if (at > 0) {
+    return { name: ref.slice(0, at), range: ref.slice(at + 1) };
+  }
+  return { name: ref };
+}
+
+function parseParts(version: string): [number, number, number] {
+  const [major = 0, minor = 0, patch = 0] = version.split(".").map(Number);
+  return [major, minor, patch];
+}
+
+/** True if exact semver satisfies an optional range (*, 1.2.3, 1.x, ^1.2.3, ~1.2.3). */
+export function versionSatisfies(version: string, range?: string): boolean {
+  if (!range || range === "*") {
+    return true;
+  }
+  if (/^[0-9]+\.[0-9]+\.[0-9]+$/.test(range)) {
+    return version === range;
+  }
+  if (/^[0-9]+\.x$/.test(range)) {
+    const major = Number(range.slice(0, -2));
+    return parseParts(version)[0] === major;
+  }
+  if (range.startsWith("^")) {
+    const base = range.slice(1);
+    if (!/^[0-9]+\.[0-9]+\.[0-9]+$/.test(base)) {
+      return false;
+    }
+    const [bMaj, bMin, bPat] = parseParts(base);
+    const [vMaj, vMin, vPat] = parseParts(version);
+    if (vMaj !== bMaj) {
+      return false;
+    }
+    if (vMin > bMin) {
+      return true;
+    }
+    if (vMin < bMin) {
+      return false;
+    }
+    return vPat >= bPat;
+  }
+  if (range.startsWith("~")) {
+    const base = range.slice(1);
+    if (!/^[0-9]+\.[0-9]+\.[0-9]+$/.test(base)) {
+      return false;
+    }
+    const [bMaj, bMin, bPat] = parseParts(base);
+    const [vMaj, vMin, vPat] = parseParts(version);
+    return vMaj === bMaj && vMin === bMin && vPat >= bPat;
+  }
+  return false;
+}
+
+export function resolveEntryForRange(
+  index: RegistryIndex,
+  name: string,
+  range?: string,
+): RegistryEntry {
+  const matches = index.skills
+    .filter((skill) => skill.name === name)
+    .filter((skill) => versionSatisfies(skill.version, range))
+    .sort((a, b) => compareSemver(b.version, a.version));
+  if (matches.length === 0) {
+    const label = range ? `${name}@${range}` : name;
+    throw new RegistryError(`No version of ${label} found in registry`);
+  }
+  return matches[0]!;
+}
+
+/**
+ * Resolve install order for a root skill and its transitive dependencies.
+ * Returned entries are dependencies-first (root last). Detects cycles and
+ * incompatible version ranges.
+ */
+export function resolveDependencyOrder(
+  index: RegistryIndex,
+  rootName: string,
+  rootVersion?: string,
+): RegistryEntry[] {
+  const resolved = new Map<string, RegistryEntry>();
+  const requiredRanges = new Map<string, Array<string | undefined>>();
+  const visiting = new Set<string>();
+  const order: RegistryEntry[] = [];
+
+  function select(name: string): RegistryEntry {
+    const ranges = requiredRanges.get(name) ?? [undefined];
+    const candidates = index.skills
+      .filter((skill) => skill.name === name)
+      .filter((skill) =>
+        ranges.every((range) => versionSatisfies(skill.version, range)),
+      )
+      .sort((a, b) => compareSemver(b.version, a.version));
+    if (candidates.length === 0) {
+      const label = ranges
+        .map((range) => (range ? `${name}@${range}` : name))
+        .join(" / ");
+      throw new RegistryError(`No registry version satisfies ${label}`);
+    }
+    return candidates[0]!;
+  }
+
+  function visit(name: string, range?: string): void {
+    const ranges = requiredRanges.get(name) ?? [];
+    ranges.push(range);
+    requiredRanges.set(name, ranges);
+
+    if (resolved.has(name)) {
+      const current = resolved.get(name)!;
+      if (!versionSatisfies(current.version, range)) {
+        throw new RegistryError(
+          `Dependency conflict for ${name}: installed resolution ${current.version} does not satisfy ${range ?? "*"}`,
+        );
+      }
+      return;
+    }
+
+    if (visiting.has(name)) {
+      throw new RegistryError(`Circular dependency detected involving ${name}`);
+    }
+
+    visiting.add(name);
+    const entry = select(name);
+    for (const depRef of entry.dependencies ?? []) {
+      const dep = parseDependencyRef(depRef);
+      visit(dep.name, dep.range);
+    }
+    visiting.delete(name);
+    resolved.set(name, entry);
+    order.push(entry);
+  }
+
+  visit(rootName, rootVersion);
+  return order;
+}
+
+export function searchSkills(
+  index: RegistryIndex,
+  query: string,
+): RegistryEntry[] {
+  const q = query.trim().toLowerCase();
+  if (!q) {
+    return [...index.skills].sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  const terms = q.split(/\s+/).filter(Boolean);
+
+  function score(entry: RegistryEntry): number {
+    const haystack = [
+      entry.name,
+      entry.description,
+      entry.category,
+      entry.author,
+      ...entry.tags,
+    ]
+      .join(" ")
+      .toLowerCase();
+
+    let points = 0;
+    for (const term of terms) {
+      if (entry.name.toLowerCase() === term) {
+        points += 100;
+      } else if (entry.name.toLowerCase().includes(term)) {
+        points += 40;
+      }
+      if (entry.category.toLowerCase() === term) {
+        points += 30;
+      }
+      if (entry.tags.some((tag) => tag.toLowerCase() === term)) {
+        points += 25;
+      } else if (entry.tags.some((tag) => tag.toLowerCase().includes(term))) {
+        points += 10;
+      }
+      if (haystack.includes(term)) {
+        points += 5;
+      } else {
+        return -1;
+      }
+    }
+    return points;
+  }
+
+  return index.skills
+    .map((entry) => ({ entry, points: score(entry) }))
+    .filter((row) => row.points >= 0)
+    .sort(
+      (a, b) =>
+        b.points - a.points || a.entry.name.localeCompare(b.entry.name),
+    )
+    .map((row) => row.entry);
 }
 
 async function walkRelativeFiles(rootDir: string): Promise<string[]> {
@@ -232,6 +431,9 @@ export async function buildRegistryIndex(
       files,
       checksum,
       repository: result.skill.repository,
+      ...(result.skill.dependencies?.length
+        ? { dependencies: result.skill.dependencies }
+        : {}),
     });
   }
 

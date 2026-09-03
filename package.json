@@ -15,9 +15,11 @@
   "scripts": {
     "build": "npm run build -w @flareskill/skill-schema && npm run build -w @flareskill/skill-parser && npm run build -w @flareskill/skill-validator && npm run build -w @flareskill/registry-client && npm run build -w @flareskill/agent-adapters && npm run build -w flareskill",
     "test": "npm run build && npm run test --workspaces --if-present",
+    "test:e2e": "npm run build && npm run test -w flareskill -- src/e2e.test.ts",
     "flareskill": "npm run build && node apps/cli/dist/index.js",
     "registry:build": "npm run build && node scripts/build-registry.js",
-    "validate:skills": "npm run build && node apps/cli/dist/index.js validate ./skills"
+    "validate:skills": "npm run build && node apps/cli/dist/index.js validate ./skills",
+    "demo:gif": "bash scripts/record-demo.sh"
   },
   "devDependencies": {
     "@types/node": "^24.5.2",

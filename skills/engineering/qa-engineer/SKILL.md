@@ -12,6 +12,8 @@ tags:
 category: qa
 agents:
   - cursor
+  - claude
+  - codex
   - generic
 ---
 

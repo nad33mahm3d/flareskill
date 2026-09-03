@@ -28,13 +28,32 @@ const ALLOWED_ROOT_DIRS = new Set([
   "scripts",
 ]);
 
+const BLOCKED_EXTENSIONS = new Set([
+  ".exe",
+  ".dll",
+  ".so",
+  ".dylib",
+  ".bat",
+  ".cmd",
+  ".com",
+  ".scr",
+  ".msi",
+  ".dmg",
+  ".pkg",
+]);
+
 const SUSPICIOUS_PHRASES = [
   "delete all files",
   "send credentials",
   "upload secrets",
   "disable security",
   "execute unknown binary",
+  "ignore previous instructions",
+  "exfiltrate",
 ];
+
+const MAX_FILE_BYTES = 1024 * 1024;
+const MAX_BODY_LINES_WARN = 500;
 
 export type ValidationIssue = {
   level: "error" | "warning";
@@ -114,6 +133,67 @@ export async function validateSkillDirectory(
     }
   }
 
+  const body = parsed.body.trim();
+  if (!body) {
+    errors.push({
+      level: "error",
+      message: "SKILL.md body must not be empty",
+    });
+  } else {
+    if (!/^#\s+/m.test(body)) {
+      warnings.push({
+        level: "warning",
+        message: "SKILL.md body should include at least one Markdown heading",
+      });
+    }
+    const lineCount = body.split(/\r?\n/).length;
+    if (lineCount > MAX_BODY_LINES_WARN) {
+      warnings.push({
+        level: "warning",
+        message: `SKILL.md body is ${lineCount} lines (prefer <= ${MAX_BODY_LINES_WARN}; move detail into references/)`,
+      });
+    }
+  }
+
+  if (metadataResult.success) {
+    const meta = metadataResult.data;
+    const dirName = path.basename(path.resolve(rootDir));
+    if (dirName !== meta.name && !dirName.startsWith("flareskill-")) {
+      warnings.push({
+        level: "warning",
+        message: `Directory name "${dirName}" does not match skill name "${meta.name}"`,
+      });
+    }
+    if (meta.description.length < 40) {
+      warnings.push({
+        level: "warning",
+        message: "description is short; explain what the skill does and when to use it",
+      });
+    }
+    if (/^\s*todo\b/i.test(meta.description)) {
+      warnings.push({
+        level: "warning",
+        message: "description still looks like a TODO placeholder",
+      });
+    }
+    const lowerTags = meta.tags.map((tag) => tag.toLowerCase());
+    if (new Set(lowerTags).size !== meta.tags.length) {
+      warnings.push({
+        level: "warning",
+        message: "tags contain duplicates",
+      });
+    }
+    for (const tag of meta.tags) {
+      if (tag !== tag.toLowerCase()) {
+        warnings.push({
+          level: "warning",
+          message: `tag "${tag}" should be lowercase`,
+        });
+        break;
+      }
+    }
+  }
+
   let entries: string[] = [];
   try {
     entries = await readdir(rootDir);
@@ -160,6 +240,22 @@ export async function validateSkillDirectory(
       errors.push({
         level: "error",
         message: `Unsafe path in package: ${relative}`,
+      });
+      continue;
+    }
+    const ext = path.extname(file).toLowerCase();
+    if (BLOCKED_EXTENSIONS.has(ext)) {
+      errors.push({
+        level: "error",
+        message: `Blocked file type in package: ${relative}`,
+      });
+      continue;
+    }
+    const info = await stat(file);
+    if (info.size > MAX_FILE_BYTES) {
+      errors.push({
+        level: "error",
+        message: `File exceeds 1MB limit: ${relative}`,
       });
     }
   }

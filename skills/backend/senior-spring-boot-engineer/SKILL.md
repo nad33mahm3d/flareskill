@@ -12,7 +12,11 @@ tags:
 category: backend
 agents:
   - cursor
+  - claude
+  - codex
   - generic
+dependencies:
+  - security-engineer@1.x
 ---
 
 # Senior Spring Boot Engineer

@@ -19,7 +19,7 @@
         "README.md",
         "SKILL.md"
       ],
-      "checksum": "132a9e0702682aaa00ef223d3fb2d03c4f342deef75a716a5fce3640bcfed754"
+      "checksum": "c3ec1cfd94c4f4e808fa0607e2fa91b44a8e10a58d2f38e69b7f7c9f15b8b912"
     },
     {
       "name": "kubernetes-engineer",
@@ -39,7 +39,10 @@
         "README.md",
         "SKILL.md"
       ],
-      "checksum": "489b84b05743c42ae9e0e063530e685d86b727cc76d17216c9fecf5ff3c787af"
+      "checksum": "70bc6545d88e0e5ec77ac250c4cde1cec59744397035c1282c29c9431fcc3c6d",
+      "dependencies": [
+        "docker-engineer@1.x"
+      ]
     },
     {
       "name": "qa-engineer",
@@ -59,7 +62,7 @@
         "README.md",
         "SKILL.md"
       ],
-      "checksum": "18a8d7b49049787dee12a4c33a508783e21b43c6ce970dbf83372bc07a98c742"
+      "checksum": "8cb4fd863cf1a85074ef9c55b59b099e6c0681a5e49c1c93670a256cd32124bd"
     },
     {
       "name": "security-engineer",
@@ -79,7 +82,7 @@
         "README.md",
         "SKILL.md"
       ],
-      "checksum": "7d30fabbee460c1c6bea19781b20e0c05399d3f949238f381bfca58d5fe8b821"
+      "checksum": "fde27b2551dc029c1742584841b20540c83bf5de04ae373f79866205f29a9708"
     },
     {
       "name": "senior-nextjs-engineer",
@@ -99,7 +102,10 @@
         "README.md",
         "SKILL.md"
       ],
-      "checksum": "d1c90c41b05e326ad5708b1b5dab5c4aeb58f9c9f06283d44d872698bd4b47a1"
+      "checksum": "e70e03a2890c7aa7b72d6d0cb678b61aa4c1910b54b1b25265b49c8cec254c45",
+      "dependencies": [
+        "senior-react-engineer@1.x"
+      ]
     },
     {
       "name": "senior-nodejs-engineer",
@@ -119,7 +125,7 @@
         "README.md",
         "SKILL.md"
       ],
-      "checksum": "4eaf4dbbf2aea30959d1a3e6d0d3a75c90ddcc2f7bb02963993eca4305d95710"
+      "checksum": "98ec1a4ae49e8090ed0c0a787550156ed8a163eefee451b73cebb7e367ce11e6"
     },
     {
       "name": "senior-python-engineer",
@@ -139,7 +145,7 @@
         "README.md",
         "SKILL.md"
       ],
-      "checksum": "11dadfb5e482c465ba3df85f17a37eceba054d0a1b94a1f9c2cdfb983daae9ae"
+      "checksum": "5d11289f151cca78f7e0e9fa6e7674a5444a8745b33d0e7eef2584bf17fc7e86"
     },
     {
       "name": "senior-react-engineer",
@@ -159,7 +165,7 @@
         "README.md",
         "SKILL.md"
       ],
-      "checksum": "429f1cfd1233b3e7325e3fa937dd5bf5bcefdad37f51a345e06aaf353ec3da2d"
+      "checksum": "05197dbcc384acfc748fe159ce1421ecc2eb7e55804748555168b88c6b0ad989"
     },
     {
       "name": "senior-spring-boot-engineer",
@@ -179,7 +185,10 @@
         "README.md",
         "SKILL.md"
       ],
-      "checksum": "a85b397e6b61b3888a590b5ddc4ec9401b39c717fda384d62e9d103f7cdf81e3"
+      "checksum": "6cd6f3d3221d6ab98f402508cdec5f6493710e349f0a541ad01a70668cd328b7",
+      "dependencies": [
+        "security-engineer@1.x"
+      ]
     },
     {
       "name": "system-architect",
@@ -199,7 +208,10 @@
         "README.md",
         "SKILL.md"
       ],
-      "checksum": "708cc5242fb97c2f0ddff0b749bae5fa79502439ff8eb696777f5c82024a700d"
+      "checksum": "171ddc197823868677fb12a2e08c4d5a3499acb24dea8ce3a8122b9083436f8e",
+      "dependencies": [
+        "security-engineer@1.x"
+      ]
     }
   ]
 }

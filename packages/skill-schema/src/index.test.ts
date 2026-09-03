@@ -27,4 +27,20 @@ describe("skillMetadataSchema", () => {
       skillMetadataSchema.parse({ ...valid, version: "1.0" }),
     ).toThrow();
   });
+
+  it("accepts dependency ranges and known agents", () => {
+    const parsed = skillMetadataSchema.parse({
+      ...valid,
+      dependencies: ["security-engineer@1.x", "code-reviewer@^1.0.0"],
+      agents: ["cursor", "claude", "codex", "generic"],
+    });
+    expect(parsed.dependencies).toHaveLength(2);
+    expect(parsed.agents).toContain("claude");
+  });
+
+  it("rejects unknown agents", () => {
+    expect(() =>
+      skillMetadataSchema.parse({ ...valid, agents: ["copilot"] }),
+    ).toThrow();
+  });
 });

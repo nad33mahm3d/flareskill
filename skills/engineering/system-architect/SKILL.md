@@ -12,7 +12,11 @@ tags:
 category: architecture
 agents:
   - cursor
+  - claude
+  - codex
   - generic
+dependencies:
+  - security-engineer@1.x
 ---
 
 # System Architect
