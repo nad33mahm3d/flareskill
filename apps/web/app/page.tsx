@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { BottomCta } from "./bottom-cta";
 import { CopyCommand } from "./copy-command";
+import { HomeStats } from "./home-stats";
 import { SkillSearch } from "./skill-search";
 import { JsonLd, websiteJsonLd } from "../lib/json-ld";
-import { getNpmStats, formatDownloads } from "../lib/npm";
+import { getNpmStats } from "../lib/npm";
 import { getRegistry } from "../lib/registry";
-import { GITHUB_URL, NPM_URL } from "../lib/site";
+import { NPM_URL } from "../lib/site";
+
+export const revalidate = 300;
 
 export default async function HomePage() {
   const { skills, profiles = [] } = getRegistry();
@@ -37,30 +40,11 @@ export default async function HomePage() {
           </a>
         </div>
         <CopyCommand command="npx flareskill install senior-react-engineer --agent cursor" />
-        <dl className="stats">
-          <div className="stat">
-            <dt className="stat-label">Agent skills</dt>
-            <dd className="stat-value">{skills.length}</dd>
-          </div>
-          <div className="stat">
-            <dt className="stat-label">Profiles</dt>
-            <dd className="stat-value">{profiles.length}</dd>
-          </div>
-          <div className="stat">
-            <dt className="stat-label">npm this week</dt>
-            <dd className="stat-value">
-              {npm.weeklyDownloads != null
-                ? formatDownloads(npm.weeklyDownloads)
-                : "—"}
-            </dd>
-          </div>
-          <div className="stat">
-            <dt className="stat-label">Source</dt>
-            <dd className="stat-value">
-              <a href={GITHUB_URL}>GitHub</a>
-            </dd>
-          </div>
-        </dl>
+        <HomeStats
+          skillCount={skills.length}
+          profileCount={profiles.length}
+          initial={npm}
+        />
       </section>
 
       <section className="section">

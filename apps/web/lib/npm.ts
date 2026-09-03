@@ -1,45 +1,105 @@
-export type NpmStats = {
-  version: string | null;
-  weeklyDownloads: number | null;
-};
+import {
+  formatDownloads,
+  formatStat,
+  type NpmStats,
+} from "./npm-format";
 
-const revalidate = { next: { revalidate: 3600 } } as const;
+export type { NpmStats };
+export { formatDownloads, formatStat };
 
-export async function getNpmStats(): Promise<NpmStats> {
+const PACKAGE = "flareskill";
+const GITHUB_REPO = "nad33mahm3d/flareskill";
+
+async function readJson<T>(url: string, init?: RequestInit): Promise<T | null> {
   try {
-    const [downloadsRes, pkgRes] = await Promise.all([
-      fetch("https://api.npmjs.org/downloads/point/last-week/flareskill", revalidate),
-      fetch("https://registry.npmjs.org/flareskill/latest", revalidate),
-    ]);
-
-    let weeklyDownloads: number | null = null;
-    if (downloadsRes.ok) {
-      const data = (await downloadsRes.json()) as { downloads?: number };
-      if (typeof data.downloads === "number") {
-        weeklyDownloads = data.downloads;
-      }
+    const res = await fetch(url, init);
+    if (!res.ok) {
+      return null;
     }
-
-    let version: string | null = null;
-    if (pkgRes.ok) {
-      const data = (await pkgRes.json()) as { version?: string };
-      if (typeof data.version === "string") {
-        version = data.version;
-      }
-    }
-
-    return { version, weeklyDownloads };
+    return (await res.json()) as T;
   } catch {
-    return { version: null, weeklyDownloads: null };
+    return null;
   }
 }
 
-export function formatDownloads(count: number): string {
-  if (count >= 1_000_000) {
-    return `${(count / 1_000_000).toFixed(1).replace(/\.0$/, "")}M`;
+function downloadsFromPayload(data: { downloads?: number } | null): number | null {
+  if (data && typeof data.downloads === "number") {
+    return data.downloads;
   }
-  if (count >= 1000) {
-    return `${(count / 1000).toFixed(1).replace(/\.0$/, "")}k`;
+  return null;
+}
+
+function emptyStats(): NpmStats {
+  return {
+    version: null,
+    weeklyDownloads: null,
+    monthlyDownloads: null,
+    totalDownloads: null,
+    githubStars: null,
+    fetchedAt: new Date().toISOString(),
+  };
+}
+
+async function loadStats(init: RequestInit): Promise<NpmStats> {
+  const githubInit: RequestInit = {
+    ...init,
+    headers: {
+      ...(init.headers ?? {}),
+      Accept: "application/vnd.github+json",
+      "User-Agent": "flareskill-web",
+    },
+  };
+
+  const [pkg, week, month, total, github] = await Promise.all([
+    readJson<{ version?: string }>(
+      `https://registry.npmjs.org/${PACKAGE}/latest`,
+      init,
+    ),
+    readJson<{ downloads?: number }>(
+      `https://api.npmjs.org/downloads/point/last-week/${PACKAGE}`,
+      init,
+    ),
+    readJson<{ downloads?: number }>(
+      `https://api.npmjs.org/downloads/point/last-month/${PACKAGE}`,
+      init,
+    ),
+    readJson<{ downloads?: number }>(
+      `https://api.npmjs.org/downloads/point/last-year/${PACKAGE}`,
+      init,
+    ),
+    readJson<{ stargazers_count?: number }>(
+      `https://api.github.com/repos/${GITHUB_REPO}`,
+      githubInit,
+    ),
+  ]);
+
+  return {
+    version: typeof pkg?.version === "string" ? pkg.version : null,
+    weeklyDownloads: downloadsFromPayload(week),
+    monthlyDownloads: downloadsFromPayload(month),
+    totalDownloads: downloadsFromPayload(total),
+    githubStars:
+      typeof github?.stargazers_count === "number"
+        ? github.stargazers_count
+        : null,
+    fetchedAt: new Date().toISOString(),
+  };
+}
+
+/** Fresh stats for API routes (always hit upstream). */
+export async function fetchNpmStatsLive(): Promise<NpmStats> {
+  try {
+    return await loadStats({ cache: "no-store" });
+  } catch {
+    return emptyStats();
   }
-  return String(count);
+}
+
+/** Cached for ISR pages (5 minutes). */
+export async function getNpmStats(): Promise<NpmStats> {
+  try {
+    return await loadStats({ next: { revalidate: 300 } });
+  } catch {
+    return emptyStats();
+  }
 }
