@@ -1,0 +1,9 @@
+{
+  "name": "data",
+  "description": "Data and API work: databases, TypeScript, and HTTP API design.",
+  "skills": [
+    "database-engineer",
+    "typescript-engineer",
+    "api-design"
+  ]
+}

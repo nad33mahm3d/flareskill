@@ -106,10 +106,11 @@ npx flareskill profile create my-stack --from-installed
 | `frontend` | React, Next.js |
 | `devops` | Docker, Kubernetes |
 | `platform` | Architect, security, QA |
+| `data` | Database, TypeScript, API design |
 
 ## Skill format
 
-Every skill is a directory with `SKILL.md` (YAML frontmatter + instructions). See [docs/specification.md](docs/specification.md) and [docs/creating-skills.md](docs/creating-skills.md).
+Every skill is a directory with `SKILL.md` (YAML frontmatter + instructions). See [docs/specification.md](docs/specification.md), [docs/creating-skills.md](docs/creating-skills.md), and [docs/skill-template](docs/skill-template/SKILL.md).
 
 ## Official skills
 
@@ -118,6 +119,7 @@ Every skill is a directory with `SKILL.md` (YAML frontmatter + instructions). Se
 | `senior-spring-boot-engineer` | backend | `security-engineer` |
 | `senior-nodejs-engineer` | backend | — |
 | `senior-python-engineer` | backend | — |
+| `database-engineer` | backend | — |
 | `senior-react-engineer` | frontend | — |
 | `senior-nextjs-engineer` | frontend | `senior-react-engineer` |
 | `kubernetes-engineer` | devops | `docker-engineer` |
@@ -125,6 +127,10 @@ Every skill is a directory with `SKILL.md` (YAML frontmatter + instructions). Se
 | `system-architect` | architecture | `security-engineer` |
 | `security-engineer` | security | — |
 | `qa-engineer` | qa | — |
+| `typescript-engineer` | engineering | — |
+| `api-design` | engineering | — |
+| `technical-writer` | engineering | — |
+| `product-manager` | engineering | — |
 
 ## Links
 
@@ -137,6 +143,9 @@ Every skill is a directory with `SKILL.md` (YAML frontmatter + instructions). Se
 - [Privacy](https://flareskill.vercel.app/privacy) · [Terms](https://flareskill.vercel.app/terms)
 - [Skill specification](docs/specification.md)
 - [Creating skills](docs/creating-skills.md)
+- [Skill template](docs/skill-template/SKILL.md)
+- [Changelog](CHANGELOG.md)
+- [Launch checklist](docs/launch-checklist.md)
 - [Contributing](CONTRIBUTING.md)
 
 ## Development

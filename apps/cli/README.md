@@ -13,6 +13,7 @@ Browse the [registry](https://flareskill.vercel.app), [guides](https://flareskil
 npx flareskill init
 npx flareskill search react
 npx flareskill install senior-react-engineer --agent cursor
+npx flareskill profile install frontend
 ```
 
 ![FlareSkill install demo](https://raw.githubusercontent.com/nad33mahm3d/flareskill/main/docs/assets/demo.gif)
@@ -28,6 +29,13 @@ npx flareskill install kubernetes-engineer --global
 ```
 
 Project installs go to `.cursor/skills/`, `.claude/skills/`, `.agents/skills/`, or `.flareskill/skills/` depending on `--agent` / auto-detect. Global installs use the matching home directory (`~/.cursor`, `~/.claude`, `~/.codex`, or `~/.flareskill`).
+
+## Profiles
+
+```bash
+npx flareskill profile list
+npx flareskill profile install frontend --agent cursor
+```
 
 ## CLI
 
@@ -58,6 +66,7 @@ npx flareskill profile install frontend
 - [Repository](https://github.com/nad33mahm3d/flareskill)
 - [Skill specification](https://github.com/nad33mahm3d/flareskill/blob/main/docs/specification.md)
 - [Creating skills](https://github.com/nad33mahm3d/flareskill/blob/main/docs/creating-skills.md)
+- [Changelog](https://github.com/nad33mahm3d/flareskill/blob/main/CHANGELOG.md)
 
 ## License
 

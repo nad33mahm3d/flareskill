@@ -2,6 +2,46 @@
   "version": 1,
   "skills": [
     {
+      "name": "api-design",
+      "version": "1.0.0",
+      "category": "engineering",
+      "description": "HTTP API design. Use when shaping REST/JSON APIs, OpenAPI contracts, versioning, errors, pagination, or reviewing public endpoints.",
+      "tags": [
+        "api",
+        "rest",
+        "openapi",
+        "backend"
+      ],
+      "author": "flareskill-community",
+      "license": "MIT",
+      "path": "skills/engineering/api-design",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "checksum": "f62dad36aca8dcf52025d63c71f8a19709d31c20614e94482aff1b47e674f116"
+    },
+    {
+      "name": "database-engineer",
+      "version": "1.0.0",
+      "category": "backend",
+      "description": "Relational database engineering. Use when designing schemas, writing SQL, indexing, migrations, or reviewing Postgres/MySQL data access.",
+      "tags": [
+        "database",
+        "sql",
+        "postgres",
+        "migrations"
+      ],
+      "author": "flareskill-community",
+      "license": "MIT",
+      "path": "skills/backend/database-engineer",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "checksum": "e0da679ea923d8796e71116f5d88403d683644a15de948722a431e0cf9b5debf"
+    },
+    {
       "name": "docker-engineer",
       "version": "1.0.0",
       "category": "devops",
@@ -43,6 +83,26 @@
       "dependencies": [
         "docker-engineer@1.x"
       ]
+    },
+    {
+      "name": "product-manager",
+      "version": "1.0.0",
+      "category": "engineering",
+      "description": "Product thinking for engineering teams. Use when clarifying problem statements, scope, acceptance criteria, prioritization, or trade-offs with users and stakeholders.",
+      "tags": [
+        "product",
+        "scoping",
+        "requirements",
+        "prioritization"
+      ],
+      "author": "flareskill-community",
+      "license": "MIT",
+      "path": "skills/engineering/product-manager",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "checksum": "62e921e2a9eff206f65a67c1c53b51f2c93ca584e340c3539b0fe0f835abb26a"
     },
     {
       "name": "qa-engineer",
@@ -212,6 +272,46 @@
       "dependencies": [
         "security-engineer@1.x"
       ]
+    },
+    {
+      "name": "technical-writer",
+      "version": "1.0.0",
+      "category": "engineering",
+      "description": "Technical writing for engineers. Use when drafting READMEs, API docs, ADRs, runbooks, or clarifying product and developer documentation.",
+      "tags": [
+        "docs",
+        "writing",
+        "readme",
+        "adr"
+      ],
+      "author": "flareskill-community",
+      "license": "MIT",
+      "path": "skills/engineering/technical-writer",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "checksum": "26a653739f6356c3ad0b8e77f7b930702d2b31b55893bb52afb7fdcf2f093964"
+    },
+    {
+      "name": "typescript-engineer",
+      "version": "1.0.0",
+      "category": "engineering",
+      "description": "TypeScript engineering. Use when designing types, narrowing, module boundaries, tsconfig, or reviewing typed JS/TS codebases.",
+      "tags": [
+        "typescript",
+        "types",
+        "node",
+        "frontend"
+      ],
+      "author": "flareskill-community",
+      "license": "MIT",
+      "path": "skills/engineering/typescript-engineer",
+      "files": [
+        "README.md",
+        "SKILL.md"
+      ],
+      "checksum": "f0516901c7530afa1a69efd8df8a26488ff863c1d4f4bf17d3284d90ebdd884f"
     }
   ],
   "profiles": [
@@ -223,6 +323,15 @@
         "senior-nodejs-engineer",
         "senior-python-engineer",
         "security-engineer"
+      ]
+    },
+    {
+      "name": "data",
+      "description": "Data and API work: databases, TypeScript, and HTTP API design.",
+      "skills": [
+        "database-engineer",
+        "typescript-engineer",
+        "api-design"
       ]
     },
     {

@@ -5,12 +5,14 @@ Thank you for contributing. FlareSkill is an open-source registry and CLI for re
 ## How to contribute
 
 1. Fork this repository.
-2. Create a skill with `npx flareskill create my-skill` or edit an existing one under `skills/`.
+2. Create a skill with `npx flareskill create my-skill` (or copy [docs/skill-template](docs/skill-template/SKILL.md) into `skills/<category>/<name>/`).
 3. Validate: `npx flareskill validate ./path-to-skill`.
 4. Add or update tests if you change packages.
-5. Open a pull request.
-6. Maintainers review (schema, security, quality).
-7. After merge, the Git-based registry index is updated.
+5. If you add or change an official skill or profile, run `npm run registry:build` and commit `registry/index.json`.
+6. Open a pull request (use the PR template).
+7. Maintainers review (schema, security, quality).
+
+Looking for ideas? Open a [New skill proposal](https://github.com/nad33mahm3d/flareskill/issues/new?template=new_skill.md) or pick an issue labeled `good first issue`.
 
 ## Skill quality checklist
 
@@ -33,9 +35,12 @@ npm install
 npm test
 npm run build
 node apps/cli/dist/index.js --help
+npm run validate:skills
+npm run registry:build
+npm run web
 ```
 
-Workspaces live under `apps/` and `packages/`. Official skills live under `skills/`. Official profiles live under `profiles/`. After adding or changing a skill or profile, run `npm run registry:build` so `registry/index.json` stays in sync. Preview the registry site with `npm run web`.
+Workspaces live under `apps/` and `packages/`. Official skills live under `skills/`. Official profiles live under `profiles/`. Preview the registry site with `npm run web`.
 
 ## Pull requests
 
@@ -45,4 +50,5 @@ Workspaces live under `apps/` and `packages/`. Official skills live under `skill
 
 ## Maintainers
 
-Release process (npm publish, GitHub Releases, planned OIDC trusted publishing): [docs/releasing.md](docs/releasing.md).
+Release process (npm publish via OIDC): [docs/releasing.md](docs/releasing.md).
+Launch / Search Console checklist: [docs/launch-checklist.md](docs/launch-checklist.md).

@@ -399,6 +399,13 @@ export async function findSkillMarkdownFiles(
     for (const entry of entries) {
       const full = path.join(current, entry.name);
       if (entry.isDirectory()) {
+        if (
+          entry.name === "node_modules" ||
+          entry.name === ".git" ||
+          entry.name.startsWith("_")
+        ) {
+          continue;
+        }
         await walk(full);
       } else if (entry.isFile() && entry.name === "SKILL.md") {
         found.push(full);

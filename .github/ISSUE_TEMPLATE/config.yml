@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Registry website
+    url: https://flareskill.vercel.app
+    about: Browse and install published AI agent skills
+  - name: DeepWiki docs
+    url: https://deepwiki.com/nad33mahm3d/flareskill
+    about: Architecture and package walkthrough

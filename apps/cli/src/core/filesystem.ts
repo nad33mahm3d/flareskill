@@ -53,7 +53,11 @@ export async function findSkillDirs(root: string): Promise<string[]> {
       if (!entry.isDirectory()) {
         continue;
       }
-      if (entry.name === "node_modules" || entry.name === ".git") {
+      if (
+        entry.name === "node_modules" ||
+        entry.name === ".git" ||
+        entry.name.startsWith("_")
+      ) {
         continue;
       }
       await walk(path.join(current, entry.name));

@@ -20,8 +20,9 @@ Fields are case-sensitive. After OIDC works, you can delete the GitHub secret `N
 
 ## Cut a release
 
-1. Bump `apps/cli/package.json` `version` on `main`.
-2. Create a GitHub Release (tag like `v0.1.3`).
+1. Bump `apps/cli/package.json` `version` on `main` and update [CHANGELOG.md](../CHANGELOG.md).
+2. Push to `main`.
+3. Create a GitHub Release with tag `vX.Y.Z` (for example `v0.3.0`) and release notes from the changelog.
 
 The [Publish](../.github/workflows/publish.yml) workflow:
 
@@ -29,7 +30,7 @@ The [Publish](../.github/workflows/publish.yml) workflow:
 - Uses `id-token: write` for OIDC
 - Tests, builds, and publishes `flareskill` with provenance
 
-Workspace libraries are bundled into the CLI; `commander`, `yaml`, and `zod` remain runtime dependencies.
+Also see [launch-checklist.md](./launch-checklist.md) after website deploys.
 
 ## Troubleshooting
 
