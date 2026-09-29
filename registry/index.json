@@ -189,6 +189,25 @@
       "checksum": "62e921e2a9eff206f65a67c1c53b51f2c93ca584e340c3539b0fe0f835abb26a"
     },
     {
+      "name": "prompt-engineer",
+      "version": "0.1.0",
+      "category": "engineering",
+      "description": "Use when writing or reviewing agent prompts, SKILL.md descriptions, or evaluation checklists. Covers trigger descriptions, non-goals, eval rubrics, and regression tests for prompts. Not for model fine-tuning.",
+      "tags": [
+        "prompts",
+        "evaluation",
+        "skill-authoring",
+        "testing"
+      ],
+      "author": "shubham-dhimaan",
+      "license": "MIT",
+      "path": "skills/engineering/prompt-engineer",
+      "files": [
+        "SKILL.md"
+      ],
+      "checksum": "ae670fc9f980389e9273141cecd0e2c342e07158e848d525ae2d2d26aea4b8d6"
+    },
+    {
       "name": "qa-engineer",
       "version": "1.0.0",
       "category": "qa",
